@@ -1,5 +1,11 @@
-﻿using Goodreads.Domain.Entities;
+﻿using Goodreads.Application.Common.Interfaces;
+using Goodreads.Domain.Entities;
+using Goodreads.Infrastructure.Identity;
 using Goodreads.Infrastructure.Persistence;
+using Goodreads.Infrastructure.Repositories;
+using Goodreads.Infrastructure.Security.TokenProvider;
+using Goodreads.Infrastructure.Services.TokenProvider;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -12,7 +18,8 @@ public static class DependencyInjection
     {
         services
             .AddPersistence(configuration)
-            .AddIdentity();
+            .AddIdentity()
+            .AddAuthentication(configuration);
 
         return services;
     }
@@ -22,6 +29,9 @@ public static class DependencyInjection
     {
         services.AddDbContext<ApplicationDbContext>(options =>
              options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
+
+        services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+
 
         return services;
     }
@@ -40,6 +50,26 @@ public static class DependencyInjection
             })
             .AddEntityFrameworkStores<ApplicationDbContext>()
             .AddDefaultTokenProviders();
+
+        return services;
+    }
+
+    private static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Section).Bind);
+
+        services
+            .ConfigureOptions<TokenProviderConfiguration>()
+            .AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer();
+
+        services.AddHttpContextAccessor();
+        services.AddScoped<ITokenProvider, JwtTokeProvider>();
+        services.AddScoped<IUserContext, UserContext>();
 
         return services;
     }

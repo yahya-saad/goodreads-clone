@@ -1,22 +1,28 @@
-﻿
+﻿using Goodreads.Application.Common.Interfaces;
+using Goodreads.Application.DTOs;
+using Goodreads.Domain.Errors;
 using Microsoft.AspNetCore.Identity;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace Goodreads.Application.Auth.Commands.LoginUser;
-internal class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<User>>
+internal class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<AuthResultDto>>
 {
     private readonly UserManager<User> _userManager;
-    private readonly SignInManager<User> _signInManager;
     private readonly ILogger<LoginUserCommandHandler> _logger;
-    public LoginUserCommandHandler(UserManager<User> userManager, SignInManager<User> signInManager, ILogger<LoginUserCommandHandler> logger)
+    private readonly ITokenProvider _tokenProvider;
+    public LoginUserCommandHandler(
+        UserManager<User> userManager,
+        ILogger<LoginUserCommandHandler> logger,
+        ITokenProvider tokenProvider)
     {
         _userManager = userManager;
-        _signInManager = signInManager;
         _logger = logger;
+        _tokenProvider = tokenProvider;
     }
 
 
 
-    public async Task<Result<User>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
+    public async Task<Result<AuthResultDto>> Handle(LoginUserCommand request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByEmailAsync(request.UsernameOrEmail);
 
@@ -24,14 +30,27 @@ internal class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Resul
             user = await _userManager.FindByNameAsync(request.UsernameOrEmail);
 
         if (user == null)
-            return Result<User>.Fail("Invalid username or password.");
+            return Result<AuthResultDto>.Fail(AuthErrors.InvalidCredentials());
 
-        var result = await _signInManager.PasswordSignInAsync(user, request.Password, false, false);
+        var passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
 
-        if (!result.Succeeded)
-            return Result<User>.Fail("Invalid username or password.");
+        if (!passwordValid)
+            return Result<AuthResultDto>.Fail(AuthErrors.InvalidCredentials());
+
+        var accessToken = await _tokenProvider.GenerateAccessTokenAsync(user);
+
+        var jwtToken = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
+
+        var refreshToken = await _tokenProvider.GenerateAndStoreRefreshTokenAsync(user, jwtToken.Id);
+
+        var authResult = new AuthResultDto
+        {
+            AccessToken = accessToken,
+            RefreshToken = refreshToken,
+        };
 
         _logger.LogInformation("User {Email} logged in successfully.", request.UsernameOrEmail);
-        return Result<User>.Ok(user);
+
+        return Result<AuthResultDto>.Ok(authResult);
     }
 }

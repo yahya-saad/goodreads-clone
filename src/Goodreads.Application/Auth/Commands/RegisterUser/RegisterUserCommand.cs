@@ -1,4 +1,4 @@
-﻿namespace Goodreads.Application.Auth.Commands;
+﻿namespace Goodreads.Application.Auth.Commands.RegisterUser;
 public class RegisterUserCommand : IRequest<Result<string>>
 {
     public string UserName { get; set; } = default!;

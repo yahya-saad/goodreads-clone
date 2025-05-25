@@ -5,8 +5,24 @@ using Microsoft.EntityFrameworkCore;
 namespace Goodreads.Infrastructure.Persistence;
 internal class ApplicationDbContext : IdentityDbContext<User>
 {
+    public DbSet<RefreshToken> RefreshTokens { get; set; }
+
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
+    }
+
+    override protected void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        modelBuilder.Entity<RefreshToken>(entity =>
+        {
+            entity.HasKey(x => x.Id);
+            entity.HasOne(x => x.User)
+                  .WithMany()
+                  .HasForeignKey(x => x.UserId)
+                  .OnDelete(DeleteBehavior.Cascade);
+        });
     }
 
     public override int SaveChanges()

@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Goodreads.Domain.Errors;
+using Microsoft.AspNetCore.Identity;
+using System.Net;
 
-namespace Goodreads.Application.Auth.Commands;
+namespace Goodreads.Application.Auth.Commands.RegisterUser;
 internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<string>>
 {
     private readonly UserManager<User> _userManager;
@@ -17,20 +19,25 @@ internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,
         _logger.LogInformation("Handling RegisterUserCommand for user: {UserName}", request.UserName);
 
         if (await _userManager.FindByNameAsync(request.UserName) != null)
-            return Result<string>.Fail("Username is already taken.");
+            return Result<string>.Fail(UserErrors.UsernameTaken());
 
         if (await _userManager.FindByEmailAsync(request.Email) != null)
-            return Result<string>.Fail("Email is already registered.");
+            return Result<string>.Fail(UserErrors.EmailAlreadyRegistered());
 
 
         var user = _mapper.Map<User>(request);
         var result = await _userManager.CreateAsync(user, request.Password);
 
-        if (result.Succeeded)
-        {
-            return Result<string>.Ok(user.Id.ToString());
-        }
+        if (!result.Succeeded)
+            return Result<string>.Fail(UserErrors.CreateUserFailed(result.Errors.First().Description));
 
-        return Result<string>.Fail(result.Errors.First().Description);
+        var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+        var encodedToken = WebUtility.UrlEncode(token);
+
+        var confirmationLink = $"https://localhost:7257/api/auth/confirm-email?userId={user.Id}&token={encodedToken}"; // Should be Frontend
+
+        //     await _emailService.SendEmailAsync(user.Email, "Confirm your email", $"Click <a href='{confirmationLink}'>here</a> to confirm your email.");
+
+        return Result<string>.Ok(confirmationLink);
     }
 }
