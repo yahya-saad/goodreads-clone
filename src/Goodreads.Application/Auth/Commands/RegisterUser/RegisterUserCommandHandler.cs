@@ -1,4 +1,5 @@
-﻿using Goodreads.Domain.Errors;
+﻿using Goodreads.Application.Common.Interfaces;
+using Goodreads.Domain.Errors;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
@@ -8,11 +9,13 @@ internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,
     private readonly UserManager<User> _userManager;
     private readonly IMapper _mapper;
     private readonly ILogger<RegisterUserCommandHandler> _logger;
-    public RegisterUserCommandHandler(UserManager<User> userManager, IMapper mapper, ILogger<RegisterUserCommandHandler> logger)
+    private readonly IEmailService _emailService;
+    public RegisterUserCommandHandler(UserManager<User> userManager, IMapper mapper, ILogger<RegisterUserCommandHandler> logger, IEmailService emailService)
     {
         _userManager = userManager;
         _mapper = mapper;
         _logger = logger;
+        _emailService = emailService;
     }
     public async Task<Result<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
@@ -36,7 +39,7 @@ internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,
 
         var confirmationLink = $"https://localhost:7257/api/auth/confirm-email?userId={user.Id}&token={encodedToken}"; // Should be Frontend
 
-        //     await _emailService.SendEmailAsync(user.Email, "Confirm your email", $"Click <a href='{confirmationLink}'>here</a> to confirm your email.");
+        await _emailService.SendEmailAsync(user.Email, "Confirm your email", $"Click <a href='{confirmationLink}'>here</a> to confirm your email.");
 
         return Result<string>.Ok(confirmationLink);
     }

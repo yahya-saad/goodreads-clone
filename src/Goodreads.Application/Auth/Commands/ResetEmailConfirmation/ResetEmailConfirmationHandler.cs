@@ -1,4 +1,5 @@
-﻿using Goodreads.Domain.Errors;
+﻿using Goodreads.Application.Common.Interfaces;
+using Goodreads.Domain.Errors;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
 
@@ -6,10 +7,12 @@ namespace Goodreads.Application.Auth.Commands.ResetEmailConfirmation;
 public class ResetEmailConfirmationCommandHandler : IRequestHandler<ResetEmailConfirmationCommand, Result<string>>
 {
     private readonly UserManager<User> _userManager;
+    private readonly IEmailService _emailService;
 
-    public ResetEmailConfirmationCommandHandler(UserManager<User> userManager)
+    public ResetEmailConfirmationCommandHandler(UserManager<User> userManager, IEmailService emailService)
     {
         _userManager = userManager;
+        _emailService = emailService;
     }
 
     public async Task<Result<string>> Handle(ResetEmailConfirmationCommand request, CancellationToken cancellationToken)
@@ -26,7 +29,10 @@ public class ResetEmailConfirmationCommandHandler : IRequestHandler<ResetEmailCo
         var encodedToken = WebUtility.UrlEncode(token);
 
         var confirmationLink = $"https://localhost:7257/api/auth/confirm-email?userId={user.Id}&token={encodedToken}";
-        //     await _emailService.SendEmailAsync(user.Email, "Confirm your email", $"Click <a href='{confirmationLink}'>here</a> to confirm your email.");
+
+        await _emailService.SendEmailAsync(
+            user.Email, "Confirm your email",
+            $"Click <a href='{confirmationLink}'>here</a> to confirm your email.");
 
         return Result<string>.Ok(confirmationLink);
     }

@@ -4,6 +4,7 @@ using Goodreads.Infrastructure.Identity;
 using Goodreads.Infrastructure.Persistence;
 using Goodreads.Infrastructure.Repositories;
 using Goodreads.Infrastructure.Security.TokenProvider;
+using Goodreads.Infrastructure.Services.EmailService;
 using Goodreads.Infrastructure.Services.TokenProvider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -19,7 +20,8 @@ public static class DependencyInjection
         services
             .AddPersistence(configuration)
             .AddIdentity()
-            .AddAuthentication(configuration);
+            .AddAuthentication(configuration)
+            .AddEmailServices(configuration);
 
         return services;
     }
@@ -56,7 +58,7 @@ public static class DependencyInjection
 
     private static IServiceCollection AddAuthentication(this IServiceCollection services, IConfiguration configuration)
     {
-        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Section).Bind);
+        services.Configure<JwtSettings>(configuration.GetSection(JwtSettings.Section));
 
         services
             .ConfigureOptions<TokenProviderConfiguration>()
@@ -70,6 +72,32 @@ public static class DependencyInjection
         services.AddHttpContextAccessor();
         services.AddScoped<ITokenProvider, JwtTokeProvider>();
         services.AddScoped<IUserContext, UserContext>();
+
+        return services;
+    }
+
+    private static IServiceCollection AddEmailServices(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<EmailSettings>(configuration.GetSection(EmailSettings.Section));
+
+        var emailSettings = configuration.GetSection(EmailSettings.Section).Get<EmailSettings>()
+            ?? throw new InvalidOperationException("Email settings are not configured properly.");
+
+        if (emailSettings.UseSmtp4Dev)
+        {
+            emailSettings.Host = "localhost";
+            emailSettings.Port = 25;
+            emailSettings.FromEmail = "noreply@localhost";
+            services.AddFluentEmail(emailSettings.FromEmail)
+            .AddSmtpSender(emailSettings.Host, emailSettings.Port);
+        }
+        else
+        {
+            services.AddFluentEmail(emailSettings.FromEmail, emailSettings.FromName)
+                .AddSmtpSender(emailSettings.Host, emailSettings.Port, emailSettings.Username, emailSettings.Password);
+        }
+
+        services.AddScoped<IEmailService, EmailService>();
 
         return services;
     }
