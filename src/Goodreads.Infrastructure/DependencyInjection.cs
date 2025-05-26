@@ -5,6 +5,7 @@ using Goodreads.Infrastructure.Persistence;
 using Goodreads.Infrastructure.Repositories;
 using Goodreads.Infrastructure.Security.TokenProvider;
 using Goodreads.Infrastructure.Services.EmailService;
+using Goodreads.Infrastructure.Services.Storage;
 using Goodreads.Infrastructure.Services.TokenProvider;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
@@ -21,7 +22,8 @@ public static class DependencyInjection
             .AddPersistence(configuration)
             .AddIdentity()
             .AddAuthentication(configuration)
-            .AddEmailServices(configuration);
+            .AddEmailServices(configuration)
+            .AddBlobStorage(configuration);
 
         return services;
     }
@@ -33,6 +35,7 @@ public static class DependencyInjection
              options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
+        services.AddScoped<IUserFollowRepository, UserFollowRepository>();
 
 
         return services;
@@ -99,6 +102,13 @@ public static class DependencyInjection
 
         services.AddScoped<IEmailService, EmailService>();
 
+        return services;
+    }
+
+    private static IServiceCollection AddBlobStorage(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.Configure<BlobStorageSettings>(configuration.GetSection(BlobStorageSettings.Section));
+        services.AddSingleton<IBlobStorageService, BlobStorageService>();
         return services;
     }
 

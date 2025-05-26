@@ -24,4 +24,7 @@ public static class UserErrors
         "Users.EmailAlreadyConfirmed",
         $"The email for user '{userId}' is already confirmed.");
 
+    public static Error UpdateFailed(string userId) => Error.Failure(
+        "Users.UpdateFailed",
+        $"Failed to update user '{userId}'");
 }

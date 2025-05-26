@@ -65,9 +65,9 @@ public class AuthController(IMediator mediator) : ControllerBase
     [EndpointSummary("Logout")]
     [ProducesResponseType(typeof(ApiResponse), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
-    public async Task<IActionResult> Logout([FromBody] LogoutCommand command)
+    public async Task<IActionResult> Logout()
     {
-        var result = await mediator.Send(command);
+        var result = await mediator.Send(new LogoutCommand());
         return result.Match(
             () => Ok(ApiResponse.Success("Logout successful")),
             failure => CustomResults.Problem(failure));

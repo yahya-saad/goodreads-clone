@@ -15,7 +15,7 @@ public static class AuthErrors
         "Auth.Unauthorized",
         "You do not have permission to perform this action.");
 
-    public static Error InvalidToken() => Error.Validation(
+    public static Error InvalidToken() => Error.Failure(
         "Auth.InvalidToken",
         "The token is invalid.");
 
