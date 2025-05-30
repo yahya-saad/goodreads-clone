@@ -13,8 +13,8 @@ using Microsoft.AspNetCore.Mvc;
 namespace Goodreads.API.Controllers;
 
 [ApiController]
-[Route("api/User")]
-public class UserFollowController(IMediator mediator) : ControllerBase
+[Route("api/[controller]")]
+public class UserFollowsController(IMediator mediator) : ControllerBase
 {
     [HttpPost("follow")]
     [Authorize]

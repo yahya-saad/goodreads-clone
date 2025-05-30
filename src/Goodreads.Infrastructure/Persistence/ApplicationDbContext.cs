@@ -3,10 +3,19 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Goodreads.Infrastructure.Persistence;
-internal class ApplicationDbContext : IdentityDbContext<User>
+public class ApplicationDbContext : IdentityDbContext<User>
 {
     public DbSet<RefreshToken> RefreshTokens { get; set; }
     public DbSet<UserFollow> UserFollows { get; set; }
+    public DbSet<Author> Authors { get; set; }
+    public DbSet<Book> Books { get; set; }
+    public DbSet<Genre> Genres { get; set; }
+    public DbSet<BookGenre> BookGenres { get; set; }
+    public DbSet<Shelf> Shelves { get; set; }
+    public DbSet<BookShelf> BookShelves { get; set; }
+    public DbSet<AuthorClaimRequest> AuthorClaimRequests { get; set; }
+    public DbSet<Quote> Quotes { get; set; }
+    public DbSet<QuoteLike> QuoteLikes { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -19,8 +28,6 @@ internal class ApplicationDbContext : IdentityDbContext<User>
 
 
         modelBuilder.Entity<User>().OwnsOne(u => u.Social);
-
-
     }
 
     public override int SaveChanges()

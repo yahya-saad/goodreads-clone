@@ -27,7 +27,7 @@ internal class GetUserSocialsQueryHandler : IRequestHandler<GetUserSocialsQuery,
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result<SocialDto>.Fail(AuthErrors.Unauthenticated());
+            return Result<SocialDto>.Fail(AuthErrors.Unauthorized);
 
         _logger.LogInformation("Fetching socials for user: {UserId}", userId);
 

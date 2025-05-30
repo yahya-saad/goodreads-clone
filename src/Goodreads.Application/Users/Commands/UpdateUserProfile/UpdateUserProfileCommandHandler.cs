@@ -20,7 +20,7 @@ internal class UpdateUserProfileCommandHandler : IRequestHandler<UpdateUserProfi
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         _logger.LogInformation("Updating socials for user: {UserId}", userId);
 

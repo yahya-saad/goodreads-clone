@@ -17,7 +17,7 @@ internal class LogoutCommandHandelr : IRequestHandler<LogoutCommand, Result>
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         var tokens = await _refreshTokenRepository.GetByUserIdAsync(userId);
 

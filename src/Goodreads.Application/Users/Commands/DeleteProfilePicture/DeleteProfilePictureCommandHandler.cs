@@ -26,7 +26,7 @@ internal class DeleteProfilePictureCommandHandler : IRequestHandler<DeleteProfil
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         _logger.LogInformation("Deleting Profile Picture user with Id : {UserId}", userId);
 

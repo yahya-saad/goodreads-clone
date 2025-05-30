@@ -22,7 +22,7 @@ public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand,
         var result = await _userManager.ResetPasswordAsync(user, request.Token, request.NewPassword);
 
         if (!result.Succeeded)
-            return Result.Fail(AuthErrors.InvalidToken());
+            return Result.Fail(AuthErrors.InvalidToken);
 
         return Result.Ok();
     }

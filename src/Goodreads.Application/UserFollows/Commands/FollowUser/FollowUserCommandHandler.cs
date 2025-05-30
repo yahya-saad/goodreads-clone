@@ -23,10 +23,10 @@ internal class FollowUserCommandHandler : IRequestHandler<FollowUserCommand, Res
         _logger.LogInformation("User with Id : {FollowerId} following user with Id : {FollowingId}", followerId, followingId);
 
         if (followerId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         if (followerId == request.FollowingId)
-            return Result.Fail(FollowErrors.SelfFollowNotAllowed());
+            return Result.Fail(FollowErrors.SelfFollowNotAllowed);
 
         var follower = await _userManager.FindByIdAsync(followerId);
         if (follower == null)

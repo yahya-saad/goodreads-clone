@@ -9,13 +9,13 @@ public class PagedResult<T>
     public bool HasNextPage => PageNumber * PageSize < TotalCount;
     public bool HasPreviousPage => PageNumber > 1;
 
-    public static PagedResult<T> Create(List<T> items, int pageNumber, int pageSize, int totalCount)
+    public static PagedResult<T> Create(List<T> items, int? pageNumber, int? pageSize, int totalCount)
     {
         return new()
         {
             Items = items,
-            PageNumber = pageNumber,
-            PageSize = pageSize,
+            PageNumber = pageNumber ?? 1,
+            PageSize = pageSize ?? totalCount,
             TotalCount = totalCount
         };
     }

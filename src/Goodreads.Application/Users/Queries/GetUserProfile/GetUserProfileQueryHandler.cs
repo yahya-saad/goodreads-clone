@@ -25,7 +25,7 @@ internal class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery,
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result<UserProfileDto>.Fail(AuthErrors.Unauthenticated());
+            return Result<UserProfileDto>.Fail(AuthErrors.Unauthorized);
 
         _logger.LogInformation("Getting User profile for {UserId}", userId);
 

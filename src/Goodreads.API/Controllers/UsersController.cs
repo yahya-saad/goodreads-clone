@@ -1,7 +1,9 @@
 ﻿using Goodreads.API.Common;
 using Goodreads.Application.Common;
+using Goodreads.Application.Common.Interfaces;
 using Goodreads.Application.Common.Responses;
 using Goodreads.Application.DTOs;
+using Goodreads.Application.Shelves.Queries.GetUserShelves;
 using Goodreads.Application.Users.Commands.ChangePassword;
 using Goodreads.Application.Users.Commands.DeleteAccount;
 using Goodreads.Application.Users.Commands.DeleteProfilePicture;
@@ -21,7 +23,7 @@ namespace Goodreads.API.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController(IMediator mediator) : ControllerBase
+public class UsersController(IMediator mediator, IUserContext userContext) : ControllerBase
 {
     [HttpGet("me")]
     [Authorize]
@@ -159,5 +161,29 @@ public class UserController(IMediator mediator) : ControllerBase
         var result = await mediator.Send(new GetAllUsersQuery(parameters));
         return Ok(result);
     }
+
+    [HttpGet("me/shelves")]
+    [Authorize]
+    [EndpointSummary("Get shelves for the current user")]
+    [ProducesResponseType(typeof(PagedResult<ShelfDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetMyShelves([FromQuery] QueryParameters parameters)
+    {
+        var userId = userContext.UserId;
+        if (userId is null)
+            return Unauthorized();
+
+        var result = await mediator.Send(new GetUserShelvesQuery(userId, parameters));
+        return Ok(result);
+    }
+
+    [HttpGet("{userId}/shelves")]
+    [EndpointSummary("Get shelves for a specific user by ID")]
+    [ProducesResponseType(typeof(PagedResult<ShelfDto>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetUserShelves(string userId, [FromQuery] QueryParameters parameters)
+    {
+        var result = await mediator.Send(new GetUserShelvesQuery(userId, parameters));
+        return Ok(result);
+    }
+
 
 }

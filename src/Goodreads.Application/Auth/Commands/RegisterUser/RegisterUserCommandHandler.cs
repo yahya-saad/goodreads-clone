@@ -1,4 +1,5 @@
 ﻿using Goodreads.Application.Common.Interfaces;
+using Goodreads.Domain.Constants;
 using Goodreads.Domain.Errors;
 using Microsoft.AspNetCore.Identity;
 using System.Net;
@@ -10,22 +11,29 @@ internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,
     private readonly IMapper _mapper;
     private readonly ILogger<RegisterUserCommandHandler> _logger;
     private readonly IEmailService _emailService;
-    public RegisterUserCommandHandler(UserManager<User> userManager, IMapper mapper, ILogger<RegisterUserCommandHandler> logger, IEmailService emailService)
+    private readonly IUnitOfWork _unitOfWork;
+    public RegisterUserCommandHandler(
+        UserManager<User> userManager,
+        IMapper mapper,
+        ILogger<RegisterUserCommandHandler> logger,
+        IEmailService emailService,
+        IUnitOfWork unitOfWork)
     {
         _userManager = userManager;
         _mapper = mapper;
         _logger = logger;
         _emailService = emailService;
+        _unitOfWork = unitOfWork;
     }
     public async Task<Result<string>> Handle(RegisterUserCommand request, CancellationToken cancellationToken)
     {
         _logger.LogInformation("Handling RegisterUserCommand for user: {UserName}", request.UserName);
 
         if (await _userManager.FindByNameAsync(request.UserName) != null)
-            return Result<string>.Fail(UserErrors.UsernameTaken());
+            return Result<string>.Fail(UserErrors.UsernameTaken);
 
         if (await _userManager.FindByEmailAsync(request.Email) != null)
-            return Result<string>.Fail(UserErrors.EmailAlreadyRegistered());
+            return Result<string>.Fail(UserErrors.EmailAlreadyRegistered);
 
 
         var user = _mapper.Map<User>(request);
@@ -33,6 +41,17 @@ internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand,
 
         if (!result.Succeeded)
             return Result<string>.Fail(UserErrors.CreateUserFailed(result.Errors.First().Description));
+
+        await _userManager.AddToRoleAsync(user, Roles.User);
+
+        var defaultShelfs = DefaultShelves.All.Select(shelf => new Shelf
+        {
+            Name = shelf,
+            UserId = user.Id,
+            IsDefault = true
+        }).ToList();
+        await _unitOfWork.Shelves.AddRangeAsync(defaultShelfs);
+        await _unitOfWork.SaveChangesAsync();
 
         var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
         var encodedToken = WebUtility.UrlEncode(token);

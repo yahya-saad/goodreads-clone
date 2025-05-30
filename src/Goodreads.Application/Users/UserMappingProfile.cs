@@ -1,7 +1,7 @@
 ﻿using Goodreads.Application.DTOs;
 
 namespace Goodreads.Application.Users;
-internal class UserMappingProfile : Profile
+public class UserMappingProfile : Profile
 {
     public UserMappingProfile()
     {

@@ -23,7 +23,7 @@ internal class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand,
         var result = await _userManager.ConfirmEmailAsync(user, request.Token);
 
         if (!result.Succeeded)
-            return Result<bool>.Fail(AuthErrors.InvalidToken());
+            return Result<bool>.Fail(AuthErrors.InvalidToken);
 
         return Result<bool>.Ok(true);
     }

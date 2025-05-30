@@ -12,9 +12,13 @@ public class User : IdentityUser
     public string? WebsiteUrl { get; set; }
     public string? Country { get; set; } = default!;
     public Social Social { get; set; } = default!;
+    public Author? ClaimedAuthorProfile { get; set; }
 
     public ICollection<UserFollow> Followers { get; set; } = new List<UserFollow>();
     public ICollection<UserFollow> Following { get; set; } = new List<UserFollow>();
+    public ICollection<QuoteLike> LikedQuotes { get; set; } = new List<QuoteLike>();
+
+
     public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
 }
 

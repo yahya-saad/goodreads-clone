@@ -15,7 +15,7 @@ public static class FollowErrors
         "Follow.NotFollowing",
         $"User '{followerId}' is not following user '{followingId}'.");
 
-    public static Error SelfFollowNotAllowed() => Error.Failure(
+    public static Error SelfFollowNotAllowed => Error.Failure(
         "Follow.SelfFollowNotAllowed",
         "You cannot follow yourself.");
 }

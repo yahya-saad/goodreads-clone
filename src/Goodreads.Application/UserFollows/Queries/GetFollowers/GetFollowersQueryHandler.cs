@@ -28,7 +28,7 @@ internal class GetFollowersQueryHandler : IRequestHandler<GetFollowersQuery, Res
     {
         var userId = _context.UserId;
         if (userId == null)
-            return Result<PagedResult<UserDto>>.Fail(AuthErrors.Unauthenticated());
+            return Result<PagedResult<UserDto>>.Fail(AuthErrors.Unauthorized);
 
         var user = await _userManager.FindByIdAsync(userId);
         if (user is null)

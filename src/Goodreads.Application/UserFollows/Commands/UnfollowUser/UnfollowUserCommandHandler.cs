@@ -30,7 +30,7 @@ internal class UnfollowUserCommandHandler : IRequestHandler<UnfollowUserCommand,
         _logger.LogInformation("User with Id : {FollowerId} is unfollowing user with Id : {FollowingId}", followerId, followingId);
 
         if (followerId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         var follower = await _userManager.FindByIdAsync(followerId);
         if (follower == null)

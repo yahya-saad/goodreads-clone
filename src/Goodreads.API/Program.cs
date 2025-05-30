@@ -1,6 +1,8 @@
+using Goodreads.API.Extensions;
 using Goodreads.API.Middlewares;
 using Goodreads.Application;
 using Goodreads.Infrastructure;
+using Goodreads.Infrastructure.Persistence;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +15,7 @@ builder.Services
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
 
+builder.Services.AddExceptionHandler<AuthorizationExceptionHandler>();
 builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
@@ -28,6 +31,12 @@ if (app.Environment.IsDevelopment())
         options.Title = "Goodreads API";
         options.OpenApiRoutePattern = "/swagger/v1/swagger.json";
     });
+}
+
+if (builder.Configuration.GetValue<bool>("RunMigrations"))
+{
+    await app.ApplyMigrationsAsync<ApplicationDbContext>();
+    await app.SeedDataAsync();
 }
 
 app.UseExceptionHandler();

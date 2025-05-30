@@ -45,10 +45,6 @@ internal class GetAllUsersQueryHandler : IRequestHandler<GetAllUsersQuery, Paged
         var dtoList = _mapper.Map<List<UserDto>>(users);
 
 
-        return PagedResult<UserDto>.Create(
-               dtoList,
-               p.PageNumber ?? 1,
-               p.PageSize ?? totalCount,
-               totalCount);
+        return PagedResult<UserDto>.Create(dtoList, p.PageNumber, p.PageSize, totalCount);
     }
 }

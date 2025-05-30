@@ -21,7 +21,7 @@ internal class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordComm
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         _logger.LogInformation("Change Password for user: {UserId}", userId);
 

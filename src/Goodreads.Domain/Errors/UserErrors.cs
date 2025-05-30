@@ -3,11 +3,11 @@
 namespace Goodreads.Domain.Errors;
 public static class UserErrors
 {
-    public static Error UsernameTaken() => Error.Conflict(
+    public static Error UsernameTaken => Error.Conflict(
         "Users.UsernameTaken",
         "Username is already taken.");
 
-    public static Error EmailAlreadyRegistered() => Error.Conflict(
+    public static Error EmailAlreadyRegistered => Error.Conflict(
         "Users.EmailAlreadyRegistered",
         "Email is already registered.");
 

@@ -20,7 +20,7 @@ internal class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountComman
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         _logger.LogInformation("Deleting user with Id : {UserId}", userId);
 

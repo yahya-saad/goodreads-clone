@@ -7,4 +7,6 @@ internal sealed class UserContext(IHttpContextAccessor httpContextAccessor) : IU
 {
     public string? UserId =>
      httpContextAccessor.HttpContext?.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+    public bool IsInRole(string role) => httpContextAccessor.HttpContext?.User?.IsInRole(role) ?? false;
 }

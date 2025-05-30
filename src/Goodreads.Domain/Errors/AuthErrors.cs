@@ -3,19 +3,20 @@
 namespace Goodreads.Domain.Errors;
 public static class AuthErrors
 {
-    public static Error InvalidCredentials() => Error.Unauthorized(
+    public static Error InvalidCredentials => Error.Unauthorized(
         "Auth.InvalidCredentials",
         "Invalid username or password.");
 
-    public static Error Unauthenticated() => Error.Unauthorized(
-        "Auth.Unauthenticated",
-        "You must be logged in to access this resource.");
-
-    public static Error Unauthorized() => Error.Forbidden(
+    public static Error Unauthorized => Error.Unauthorized(
         "Auth.Unauthorized",
+        "You are not authenticated.");
+
+
+    public static Error Forbidden => Error.Forbidden(
+        "Auth.Forbidden",
         "You do not have permission to perform this action.");
 
-    public static Error InvalidToken() => Error.Failure(
+    public static Error InvalidToken => Error.Failure(
         "Auth.InvalidToken",
         "The token is invalid.");
 

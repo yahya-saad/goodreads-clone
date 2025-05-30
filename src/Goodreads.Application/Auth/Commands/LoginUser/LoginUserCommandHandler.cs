@@ -30,12 +30,12 @@ internal class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Resul
             user = await _userManager.FindByNameAsync(request.UsernameOrEmail);
 
         if (user == null)
-            return Result<AuthResultDto>.Fail(AuthErrors.InvalidCredentials());
+            return Result<AuthResultDto>.Fail(AuthErrors.InvalidCredentials);
 
         var passwordValid = await _userManager.CheckPasswordAsync(user, request.Password);
 
         if (!passwordValid)
-            return Result<AuthResultDto>.Fail(AuthErrors.InvalidCredentials());
+            return Result<AuthResultDto>.Fail(AuthErrors.InvalidCredentials);
 
         var accessToken = await _tokenProvider.GenerateAccessTokenAsync(user);
 

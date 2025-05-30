@@ -27,7 +27,7 @@ internal class UpdateProfilePictureCommandHandler : IRequestHandler<UpdateProfil
     {
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result.Fail(AuthErrors.Unauthenticated());
+            return Result.Fail(AuthErrors.Unauthorized);
 
         _logger.LogInformation("Updating Profile Picture user with Id : {UserId}", userId);
 

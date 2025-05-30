@@ -1,7 +1,10 @@
 ﻿using Goodreads.Application.Common.Interfaces;
+using Goodreads.Application.Common.Interfaces.Authorization;
 using Goodreads.Domain.Entities;
+using Goodreads.Infrastructure.Authorization;
 using Goodreads.Infrastructure.Identity;
 using Goodreads.Infrastructure.Persistence;
+using Goodreads.Infrastructure.Persistence.Seeders;
 using Goodreads.Infrastructure.Repositories;
 using Goodreads.Infrastructure.Security.TokenProvider;
 using Goodreads.Infrastructure.Services.EmailService;
@@ -22,6 +25,7 @@ public static class DependencyInjection
             .AddPersistence(configuration)
             .AddIdentity()
             .AddAuthentication(configuration)
+            .AddAuthorization()
             .AddEmailServices(configuration)
             .AddBlobStorage(configuration);
 
@@ -34,9 +38,15 @@ public static class DependencyInjection
         services.AddDbContext<ApplicationDbContext>(options =>
              options.UseSqlServer(configuration.GetConnectionString("DefaultConnection")));
 
+        // Seeding
+        services.AddScoped<ISeeder, RolesSeeder>();
+        services.AddScoped<ISeeder, AuthorsSeeder>();
+        services.AddScoped<ISeeder, BooksSeeder>();
+        services.AddScoped<AppSeeder>();
+
         services.AddScoped<IRefreshTokenRepository, RefreshTokenRepository>();
         services.AddScoped<IUserFollowRepository, UserFollowRepository>();
-
+        services.AddScoped<IUnitOfWork, UnitOfWork>();
 
         return services;
     }
@@ -76,6 +86,14 @@ public static class DependencyInjection
         services.AddScoped<ITokenProvider, JwtTokeProvider>();
         services.AddScoped<IUserContext, UserContext>();
 
+        return services;
+    }
+
+    private static IServiceCollection AddAuthorization(this IServiceCollection services)
+    {
+        services.AddScoped<IShelfAuthorizationService, ShelfAuthorizationService>();
+        services.AddScoped<IAuthorAuthorizationService, AuthorAuthorizationService>();
+        services.AddScoped<IQuoteAuthorizationService, QuoteAuthorizationService>();
         return services;
     }
 
