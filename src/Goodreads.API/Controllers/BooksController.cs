@@ -4,6 +4,7 @@ using Goodreads.Application.Books.Commands.CreateBook;
 using Goodreads.Application.Books.Commands.DeleteBook.DeleteBookCommand;
 using Goodreads.Application.Books.Commands.RemoveGenreFromBook;
 using Goodreads.Application.Books.Commands.UpdateBook;
+using Goodreads.Application.Books.Commands.UpdateBookStatus;
 using Goodreads.Application.Books.Queries.GetAllBooks;
 using Goodreads.Application.Books.Queries.GetBookById;
 using Goodreads.Application.Books.Queries.GetBooksByGenre;
@@ -119,6 +120,23 @@ public class BooksController(IMediator mediator) : ControllerBase
     {
         var result = await mediator.Send(new GetBooksByGenreQuery(parameters));
         return Ok(result);
+    }
+
+
+    [HttpPost("{bookId}/status")]
+    [Authorize]
+    [EndpointSummary("Update book status (default shelf)")]
+    [ProducesResponseType(StatusCodes.Status204NoContent)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> UpdateBookStatus(string bookId, [FromQuery] string? targetShelfName)
+    {
+        var command = new UpdateBookStatusCommand(bookId, targetShelfName);
+        var result = await mediator.Send(command);
+
+        return result.Match(
+             () => NoContent(),
+             failure => CustomResults.Problem(failure));
     }
 
 }

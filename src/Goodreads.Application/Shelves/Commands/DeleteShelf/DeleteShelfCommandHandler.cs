@@ -1,5 +1,6 @@
 ﻿using Goodreads.Application.Common.Interfaces;
 using Goodreads.Domain.Errors;
+using SharedKernel;
 
 namespace Goodreads.Application.Shelves.Commands.DeleteShelf;
 internal class DeleteShelfCommandHandler : IRequestHandler<DeleteShelfCommand, Result>
@@ -25,7 +26,7 @@ internal class DeleteShelfCommandHandler : IRequestHandler<DeleteShelfCommand, R
 
         var userId = _userContext.UserId;
         if (userId == null)
-            return Result<string>.Fail(AuthErrors.Unauthorized);
+            return Result.Fail(AuthErrors.Unauthorized);
 
         var shelf = await _unitOfWork.Shelves.GetByIdAsync(shelfId);
         if (shelf == null)
@@ -34,9 +35,16 @@ internal class DeleteShelfCommandHandler : IRequestHandler<DeleteShelfCommand, R
             return Result.Fail(ShelfErrors.NotFound(shelfId));
         }
 
+        if (shelf.IsDefault)
+        {
+            _logger.LogWarning("Attempt to delete default shelf: {ShelfName}", shelf.Name);
+            return Result.Fail(Error.Failure("Shelves.DefaultShelfDeleteDenied", $"Cannot delete default shelf '{shelf.Name}'."));
+        }
+
         _unitOfWork.Shelves.Delete(shelf);
         await _unitOfWork.SaveChangesAsync();
 
         return Result.Ok();
     }
+
 }

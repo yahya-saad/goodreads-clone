@@ -1,16 +1,13 @@
 ﻿using FluentValidation;
 using Goodreads.Application.Common.Validation;
 
-namespace Goodreads.Application.Shelves.Queries.GetUserShelves;
-public class GetUserShelvesQueryValidator : AbstractValidator<GetUserShelvesQuery>
+namespace Goodreads.Application.ReadingProgresses.Queries.GetReadingProgresses;
+public class GetReadingProgressesQueryValidator : AbstractValidator<GetReadingProgressesQuery>
 {
-    private readonly string[] allowedSortColumns = { "name" };
-    public GetUserShelvesQueryValidator()
-    {
-        RuleFor(x => x.UserId)
-            .NotEmpty()
-            .WithMessage("User ID is required.");
+    private readonly string[] allowedSortColumns = { "currentpage", "updatedat" };
 
+    public GetReadingProgressesQueryValidator()
+    {
         RuleFor(x => x.Parameters)
             .SetValidator(new QueryParametersValidator());
 

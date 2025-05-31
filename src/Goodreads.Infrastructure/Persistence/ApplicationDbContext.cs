@@ -16,6 +16,8 @@ public class ApplicationDbContext : IdentityDbContext<User>
     public DbSet<AuthorClaimRequest> AuthorClaimRequests { get; set; }
     public DbSet<Quote> Quotes { get; set; }
     public DbSet<QuoteLike> QuoteLikes { get; set; }
+    public DbSet<ReadingProgress> ReadingProgresses { get; set; }
+    public DbSet<UserYearChallenge> UserYearChallenges { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {

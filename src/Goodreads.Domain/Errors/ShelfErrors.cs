@@ -9,4 +9,8 @@ public class ShelfErrors
     public static Error AlreadyAdded => Error.Conflict(
        "Shelf.AlreadyAdded",
        $"Book already in shelf");
+
+    public static Error DefaultShelfAddDenied(string name) => Error.Conflict(
+        "Shelf.DefaultShelfAddDenied",
+        "Cannot add book to the default shelf.");
 }

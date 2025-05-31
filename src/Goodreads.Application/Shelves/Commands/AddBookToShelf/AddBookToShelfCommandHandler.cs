@@ -31,10 +31,7 @@ internal class AddBookToShelfCommandHandler : IRequestHandler<AddBookToShelfComm
             return Result.Fail(BookErrors.NotFound(request.BookId));
         }
 
-        if (shelf.BookShelves.Any(bs => bs.BookId == request.BookId))
-            return Result.Fail(ShelfErrors.AlreadyAdded);
-
-
+        if (shelf.IsDefault) return Result.Fail(ShelfErrors.DefaultShelfAddDenied(shelf.Name));
 
         var toAdd = new BookShelf
         {

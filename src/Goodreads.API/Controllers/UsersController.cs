@@ -14,6 +14,8 @@ using Goodreads.Application.Users.Queries.GetAllUsers;
 using Goodreads.Application.Users.Queries.GetProfileByUsername;
 using Goodreads.Application.Users.Queries.GetUserProfile;
 using Goodreads.Application.Users.Queries.GetUserSocials;
+using Goodreads.Application.UserYearChallenges.Queries.GetAllUserYearChallenges;
+using Goodreads.Application.UserYearChallenges.Queries.GetUserYearChallenge;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -166,23 +168,50 @@ public class UsersController(IMediator mediator, IUserContext userContext) : Con
     [Authorize]
     [EndpointSummary("Get shelves for the current user")]
     [ProducesResponseType(typeof(PagedResult<ShelfDto>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetMyShelves([FromQuery] QueryParameters parameters)
+    public async Task<IActionResult> GetMyShelves([FromQuery] QueryParameters parameters, string? Shelf)
     {
         var userId = userContext.UserId;
         if (userId is null)
             return Unauthorized();
 
-        var result = await mediator.Send(new GetUserShelvesQuery(userId, parameters));
+        var result = await mediator.Send(new GetUserShelvesQuery(userId, parameters, Shelf));
         return Ok(result);
     }
 
     [HttpGet("{userId}/shelves")]
     [EndpointSummary("Get shelves for a specific user by ID")]
     [ProducesResponseType(typeof(PagedResult<ShelfDto>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetUserShelves(string userId, [FromQuery] QueryParameters parameters)
+    public async Task<IActionResult> GetUserShelves(string userId, [FromQuery] QueryParameters parameters, string? Shelf)
     {
-        var result = await mediator.Send(new GetUserShelvesQuery(userId, parameters));
+        var result = await mediator.Send(new GetUserShelvesQuery(userId, parameters, Shelf));
         return Ok(result);
+    }
+
+
+    [HttpGet("me/yearlychallenges")]
+    [Authorize]
+    [ProducesResponseType(typeof(PagedResult<UserYearChallengeDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetMyYearlyChallenges([FromQuery] QueryParameters parameters, [FromQuery] int? year)
+    {
+        var userId = userContext.UserId;
+        var result = await mediator.Send(new GetAllUserYearChallengesQuery(userId, parameters, year));
+        return Ok(result);
+    }
+
+    [HttpGet("me/yearlychallenges/{year:int}")]
+    [Authorize]
+    [ProducesResponseType(typeof(UserYearChallengeDetailsDto), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status404NotFound)]
+    [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+    public async Task<IActionResult> GetMyYearlyChallengeDetails(int year)
+    {
+        var userId = userContext.UserId;
+        var result = await mediator.Send(new GetUserYearChallengeQuery(userId, year));
+        return result.Match(
+            challenge => Ok(ApiResponse<UserYearChallengeDetailsDto>.Success(challenge)),
+            failure => CustomResults.Problem(failure)
+        );
     }
 
 
