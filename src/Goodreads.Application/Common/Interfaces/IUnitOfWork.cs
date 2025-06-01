@@ -11,6 +11,7 @@ public interface IUnitOfWork : IDisposable
     IRepository<QuoteLike> QuoteLikes { get; }
     IRepository<ReadingProgress> ReadingProgresses { get; }
     IRepository<UserYearChallenge> UserYearChallenges { get; }
+    IRepository<BookReview> BookReviews { get; }
 
     Task<int> SaveChangesAsync();
 }

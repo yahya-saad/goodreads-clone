@@ -19,4 +19,5 @@ public class Book
 
     public ICollection<BookGenre> BookGenres { get; set; } = new List<BookGenre>();
     public ICollection<BookShelf> BookShelves { get; set; } = new List<BookShelf>();
+    public ICollection<BookReview> BookReviews { get; set; } = new List<BookReview>();
 }

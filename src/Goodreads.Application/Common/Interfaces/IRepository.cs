@@ -18,4 +18,6 @@ public interface IRepository<T> where T : class
     void Update(T entity);
     void Delete(T entity);
     Task<int> CountAsync(Expression<Func<T, bool>>? filter = null);
+    Task<T?> GetSingleOrDefaultAsync(Expression<Func<T, bool>> filter, string[]? includes = null);
+
 }

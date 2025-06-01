@@ -26,12 +26,8 @@ public class UpdateReadingProgressCommandHandler : IRequestHandler<UpdateReading
         if (userId == null)
             return Result.Fail(AuthErrors.Unauthorized);
 
-
-        var (progresses, _) = await _unitOfWork.ReadingProgresses.GetAllAsync(
+        var progress = await _unitOfWork.ReadingProgresses.GetSingleOrDefaultAsync(
             filter: rp => rp.UserId == userId && rp.BookId == request.BookId);
-
-        var progress = progresses.FirstOrDefault();
-
 
         var book = await _unitOfWork.Books.GetByIdAsync(request.BookId);
         if (book == null)
@@ -77,6 +73,13 @@ public class UpdateReadingProgressCommandHandler : IRequestHandler<UpdateReading
                 AddedAt = DateTime.UtcNow
             });
 
+            // Update Year Challenge
+            var currentYear = DateTime.UtcNow.Year;
+            var userChallenge = await _unitOfWork.UserYearChallenges.GetSingleOrDefaultAsync(
+             filter: c => c.UserId == userId && c.Year == currentYear);
+
+            if (userChallenge != null)
+                userChallenge.CompletedBooksCount += 1;
 
         }
 

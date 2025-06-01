@@ -1,4 +1,5 @@
-﻿using System.Linq.Dynamic.Core;
+﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Dynamic.Core;
 
 namespace Goodreads.Application.Common.Extensions;
 
@@ -21,5 +22,17 @@ public static class QueryableExtensions
         return query
             .Skip((pageNumber.Value - 1) * pageSize.Value)
             .Take(pageSize.Value);
+    }
+
+    public static IQueryable<T> ApplyIncludes<T>(this IQueryable<T> query, string[]? includes)
+    where T : class
+    {
+        if (includes == null || includes.Length == 0)
+            return query;
+
+        foreach (var include in includes)
+            query = query.Include(include);
+
+        return query;
     }
 }

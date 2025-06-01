@@ -1,4 +1,6 @@
 ﻿using Goodreads.Application.Common.Interfaces;
+using Goodreads.Domain.Constants;
+using Goodreads.Domain.Errors;
 using SharedKernel;
 
 namespace Goodreads.Application.Books.Commands.UpdateBookStatus;
@@ -58,30 +60,27 @@ public class UpdateBookStatusCommandHandler : IRequestHandler<UpdateBookStatusCo
         _logger.LogInformation("Book {BookId} updated to status {ShelfName}", request.BookId, request.TargetShelfName);
 
 
-        // تحديث التحدي السنوي إذا موجود
+        // تحديث التحدي السنوي 
         var currentYear = DateTime.UtcNow.Year;
 
-        var (readShelves, _) = await (_unitOfWork.Shelves.GetAllAsync(
-             filter: s => s.UserId == userId && s.Name == "Read"));
-        var readShelf = readShelves.FirstOrDefault();
+        var readShelf = await _unitOfWork.Shelves.GetSingleOrDefaultAsync(
+             filter: s => s.UserId == userId && s.Name == DefaultShelves.Read);
+
+        if (readShelf == null)
+            return Result.Fail(ShelfErrors.NotFound("Read Shelf"));
 
         var completedBooksCount = await _unitOfWork.BookShelves.CountAsync(
-            bs => bs.ShelfId == readShelf!.Id && bs.AddedAt.Year == currentYear);
+            bs => bs.ShelfId == readShelf.Id && bs.AddedAt.Year == currentYear);
 
-
-        var (challenge, _) = await _unitOfWork.UserYearChallenges.GetAllAsync(
+        var userChallenge = await _unitOfWork.UserYearChallenges.GetSingleOrDefaultAsync(
             filter: c => c.UserId == userId && c.Year == currentYear);
 
-        var userChallenge = challenge.FirstOrDefault();
-        if (userChallenge != null)
+        if (userChallenge != null && userChallenge.CompletedBooksCount != completedBooksCount)
         {
-            if (userChallenge.CompletedBooksCount != completedBooksCount)
-            {
-                userChallenge.CompletedBooksCount = completedBooksCount;
-                _unitOfWork.UserYearChallenges.Update(userChallenge);
-                await _unitOfWork.SaveChangesAsync();
-                _logger.LogInformation("Updated yearly challenge completed count for user {UserId} to {Count}", userId, completedBooksCount);
-            }
+            userChallenge.CompletedBooksCount = completedBooksCount;
+            _unitOfWork.UserYearChallenges.Update(userChallenge);
+            await _unitOfWork.SaveChangesAsync();
+            _logger.LogInformation("Updated yearly challenge completed count for user {UserId} to {Count}", userId, completedBooksCount);
         }
 
         return Result.Ok();

@@ -23,8 +23,8 @@ public class UpsertUserYearChallengeCommandHandler : IRequestHandler<UpsertUserY
 
         int currentYear = DateTime.UtcNow.Year;
 
-        var existingChallenge = (await _unitOfWork.UserYearChallenges.GetAllAsync(
-            filter: c => c.UserId == userId && c.Year == currentYear)).Items.FirstOrDefault();
+        var existingChallenge = (await _unitOfWork.UserYearChallenges.GetSingleOrDefaultAsync(
+            filter: c => c.UserId == userId && c.Year == currentYear));
 
         if (existingChallenge == null)
         {

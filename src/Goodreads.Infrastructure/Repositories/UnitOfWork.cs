@@ -16,6 +16,7 @@ internal class UnitOfWork : IUnitOfWork
     private IRepository<QuoteLike>? _quoteLikeRepository;
     private IRepository<ReadingProgress>? _readingProgressRepository;
     private IRepository<UserYearChallenge>? _userYearChallengeRepository;
+    private IRepository<BookReview>? _bookReviewRepository;
 
     public UnitOfWork(ApplicationDbContext context)
     {
@@ -33,6 +34,7 @@ internal class UnitOfWork : IUnitOfWork
     public IRepository<QuoteLike> QuoteLikes => _quoteLikeRepository ??= new GenericRepository<QuoteLike>(_context);
     public IRepository<ReadingProgress> ReadingProgresses => _readingProgressRepository ??= new GenericRepository<ReadingProgress>(_context);
     public IRepository<UserYearChallenge> UserYearChallenges => _userYearChallengeRepository ??= new GenericRepository<UserYearChallenge>(_context);
+    public IRepository<BookReview> BookReviews => _bookReviewRepository ??= new GenericRepository<BookReview>(_context);
 
     public async Task<int> SaveChangesAsync() => await _context.SaveChangesAsync();
     public void Dispose() => _context.Dispose();

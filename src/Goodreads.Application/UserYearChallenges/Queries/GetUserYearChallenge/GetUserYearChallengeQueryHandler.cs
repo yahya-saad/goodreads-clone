@@ -20,11 +20,9 @@ public class GetUserYearChallengeQueryHandler : IRequestHandler<GetUserYearChall
         var userId = request.UserId;
         var year = request.Year;
 
-        var (challenges, _) = await _unitOfWork.UserYearChallenges.GetAllAsync(
-            filter: c => c.UserId == userId && c.Year == year
-        );
+        var challenge = await _unitOfWork.UserYearChallenges.GetSingleOrDefaultAsync(
+            filter: c => c.UserId == userId && c.Year == year);
 
-        var challenge = challenges.FirstOrDefault();
         if (challenge == null)
             return Result<UserYearChallengeDetailsDto>.Fail(UserYearChallengeErrors.NotFound(year));
 

@@ -28,10 +28,9 @@ public class ToggleQuoteLikeCommandHandler : IRequestHandler<ToggleQuoteLikeComm
         if (quote == null)
             return Result<bool>.Fail(QuoteErrors.NotFound(request.QuoteId));
 
-        var (items, _) = await _unitOfWork.QuoteLikes
-            .GetAllAsync(filter: q => q.QuoteId == request.QuoteId && q.UserId == userId);
+        var existingLike = await _unitOfWork.QuoteLikes
+            .GetSingleOrDefaultAsync(filter: q => q.QuoteId == request.QuoteId && q.UserId == userId);
 
-        var existingLike = items.FirstOrDefault();
 
         if (existingLike != null)
         {

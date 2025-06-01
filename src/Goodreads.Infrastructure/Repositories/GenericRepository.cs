@@ -19,8 +19,7 @@ internal class GenericRepository<T> : IRepository<T> where T : class
     {
         var query = _dbSet.AsQueryable();
 
-        foreach (var include in includes)
-            query = query.Include(include);
+        query = query.ApplyIncludes(includes);
 
         return await query.FirstOrDefaultAsync(e => EF.Property<string>(e, "Id") == id);
     }
@@ -35,12 +34,7 @@ internal class GenericRepository<T> : IRepository<T> where T : class
     {
         var query = _dbSet.AsQueryable();
 
-        if (includes != null)
-        {
-            foreach (var include in includes)
-                query = query.Include(include);
-        }
-
+        query = query.ApplyIncludes(includes);
 
         if (filter != null)
             query = query.Where(filter);
@@ -78,6 +72,14 @@ internal class GenericRepository<T> : IRepository<T> where T : class
     public async Task<int> CountAsync(Expression<Func<T, bool>>? filter = null)
     {
         return await _dbSet.CountAsync(filter ?? (_ => true));
+    }
+
+
+    public async Task<T?> GetSingleOrDefaultAsync(Expression<Func<T, bool>> filter, string[]? includes = null)
+    {
+        var query = _dbSet.AsQueryable();
+        query = query.ApplyIncludes(includes);
+        return await query.SingleOrDefaultAsync(filter);
     }
 
 }
