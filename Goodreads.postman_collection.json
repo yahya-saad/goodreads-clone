@@ -1,0 +1,2599 @@
+{
+	"info": {
+		"_postman_id": "9dd7d46e-3074-4b35-a159-a75c97cd876c",
+		"name": "Goodreads",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23502967"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"tester\",\r\n  \"email\": \"tester@email.com\",\r\n  \"password\": \"Password\",\r\n  \"firstName\": \"string\", // ?\r\n  \"lastName\": \"string\" // ?\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Auth/register",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var res = pm.response.json();\r",
+									"\r",
+									"pm.environment.set(\"accessToken\", res.data.accessToken);\r",
+									"pm.environment.set(\"refreshToken\", res.data.refreshToken);\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"UsernameOrEmail\": \"tester2\",\r\n  \"password\": \"Password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Auth/login",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "confirm-email",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/confirm-email?userId=&token=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"confirm-email"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": ""
+								},
+								{
+									"key": "token",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-confirmation-email",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"tester1@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/reset-confirmation-email",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-confirmation-email"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"tester1@email.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/forgot-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"forgot-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-password",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"NewPassword\":\"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/auth/reset-password?userId=980645ae-6a0c-433c-92a6-098dfdef394b&token=CfDJ8NeIr%2BoLHOVIrT3qwntDxpKF6JaBxs9%2FjxGy4NfIC6FBhI%2Fkn4VTaAjXD2QohJqTsEw03QJdoelWH2BwLBdXzC3g1aHvpqFGofEnZzpqGY04ApPoIRH%2FCr6X3P02U7%2FE9W%2FPPAl5EuiasAwuASepPYXlXDSLhVKYMfYZ9W4qqejf75G25slu%2FHZtCi%2Bo1nrrc%2FAjpytnBL8dh5UUhxgTBQA4iPHN0Q%2BBVFvK2VbiKlw8",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"reset-password"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "980645ae-6a0c-433c-92a6-098dfdef394b"
+								},
+								{
+									"key": "token",
+									"value": "CfDJ8NeIr%2BoLHOVIrT3qwntDxpKF6JaBxs9%2FjxGy4NfIC6FBhI%2Fkn4VTaAjXD2QohJqTsEw03QJdoelWH2BwLBdXzC3g1aHvpqFGofEnZzpqGY04ApPoIRH%2FCr6X3P02U7%2FE9W%2FPPAl5EuiasAwuASepPYXlXDSLhVKYMfYZ9W4qqejf75G25slu%2FHZtCi%2Bo1nrrc%2FAjpytnBL8dh5UUhxgTBQA4iPHN0Q%2BBVFvK2VbiKlw8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"RefreshToken\": \"{{refreshToken}}\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Auth/refresh",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Auth",
+								"refresh"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7257/api/Auth/logout",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7257",
+							"path": [
+								"api",
+								"Auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Socials",
+					"item": [
+						{
+							"name": "Update Social Links",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"Twitter\":\"http://www.wwww.com\",\r\n    \"Facebook\":\"http://www.facebook.com\",\r\n    \"LinkedIn\":\"http://www.linkedin.com\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/users/me/socials",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"me",
+										"socials"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Socials",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/users/me/socials",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"me",
+										"socials"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Profile Picture",
+					"item": [
+						{
+							"name": "Update Profile Picture",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "file",
+											"type": "file",
+											"src": "/C:/Users/PC/Downloads/cv001.pdf"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/user/profile/profile-picture",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"profile",
+										"profile-picture"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete Profile Picture",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/users/me/profile-picture",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"users",
+										"me",
+										"profile-picture"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Shelves",
+					"item": [
+						{
+							"name": "Get my shelves",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Users/me/shelves?SortColumn=name&PageNumber=1&SortOrder=desc&PageSize=2",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Users",
+										"me",
+										"shelves"
+									],
+									"query": [
+										{
+											"key": "SortColumn",
+											"value": "name"
+										},
+										{
+											"key": "PageNumber",
+											"value": "1"
+										},
+										{
+											"key": "SortOrder",
+											"value": "desc",
+											"description": "asc / desc"
+										},
+										{
+											"key": "PageSize",
+											"value": "2",
+											"description": "between 1 and 50"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get user shelves",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Users/:{userId}/shelves?Shelf=Read",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Users",
+										":{userId}",
+										"shelves"
+									],
+									"query": [
+										{
+											"key": "SortColumn",
+											"value": "name",
+											"disabled": true
+										},
+										{
+											"key": "PageNumber",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "SortOrder",
+											"value": "desc",
+											"description": "asc / desc",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": "2",
+											"description": "between 1 and 50",
+											"disabled": true
+										},
+										{
+											"key": "Shelf",
+											"value": "Read"
+										}
+									],
+									"variable": [
+										{
+											"key": "{userId}",
+											"value": "9cea575c-2360-4d52-93e0-f56a55800f01"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Yearly Challenges",
+					"item": [
+						{
+							"name": "Get my Challenge for a year",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Users/me/yearlychallenges/:{year}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Users",
+										"me",
+										"yearlychallenges",
+										":{year}"
+									],
+									"variable": [
+										{
+											"key": "{year}",
+											"value": "2023"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get All Years Challenges",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/api/Users/me/yearlychallenges?Year=2025",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Users",
+										"me",
+										"yearlychallenges"
+									],
+									"query": [
+										{
+											"key": "SortColumn",
+											"value": "year",
+											"description": "year, completedbookscount, targetbookscount",
+											"disabled": true
+										},
+										{
+											"key": "SortOrder",
+											"value": "asc",
+											"disabled": true
+										},
+										{
+											"key": "PageNumber",
+											"value": "1",
+											"disabled": true
+										},
+										{
+											"key": "PageSize",
+											"value": "2",
+											"disabled": true
+										},
+										{
+											"key": "UserId",
+											"value": "a935a6f6-ad0b-4644-8856-8a3d35b9efd8",
+											"disabled": true
+										},
+										{
+											"key": "Year",
+											"value": "2025"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Current User Profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get User Profile By username",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/users/:username",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								":username"
+							],
+							"variable": [
+								{
+									"key": "username",
+									"value": "ahmed"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/User/search?Query=&SortColumn=&SortOrder=&PageSize=&PageNumber",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"search"
+							],
+							"query": [
+								{
+									"key": "Query",
+									"value": ""
+								},
+								{
+									"key": "SortColumn",
+									"value": ""
+								},
+								{
+									"key": "SortOrder",
+									"value": "",
+									"description": "asc / desc"
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "between 1 and 50"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reviews for a user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Users/:{userId}/reviews?SortColumn=&SortOrder=&PageSize=&PageNumber",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								":{userId}",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "SortColumn",
+									"value": "",
+									"description": "CreatedAt - Rating"
+								},
+								{
+									"key": "SortOrder",
+									"value": "",
+									"description": "asc / desc"
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "between 1 and 50"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								}
+							],
+							"variable": [
+								{
+									"key": "{userId}",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get reviews for current user",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Users/me/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Users",
+								"me",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "SortColumn",
+									"value": "",
+									"description": "CreatedAt - Rating",
+									"disabled": true
+								},
+								{
+									"key": "SortOrder",
+									"value": "",
+									"description": "asc / desc",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "between 1 and 50",
+									"disabled": true
+								},
+								{
+									"key": "PageNumber",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"firstName\": \"Yahya\",\r\n  \"lastName\": \"Saad\",\r\n  \"dateOfBirth\": \"2025-05-25\",\r\n  \"bio\": \"new bio\",\r\n  \"websiteUrl\": \"https://www.website.com\",\r\n  \"country\": \"USA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Account",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/user/profile",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Change Password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"CurrentPassword\":\"password\",\r\n    \"NewPassword\":\"Password\",\r\n    \"ConfirmPassword\":\"Password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/users/me/change-password",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"users",
+								"me",
+								"change-password"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserFollow",
+			"item": [
+				{
+					"name": "Follow a user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"followingId\": \"980645ae-6a0c-433c-92a6-098dfdef394b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/UserFollows/follow",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"UserFollows",
+								"follow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Unfollow a user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"followingId\": \"980645ae-6a0c-433c-92a6-098dfdef394b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/UserFollows/Unfollow",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"UserFollows",
+								"Unfollow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Followers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/UserFollows/followers?pageNumber=2&pageSize=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"UserFollows",
+								"followers"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": "2"
+								},
+								{
+									"key": "pageSize",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Following",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/User/following?pageNumber&pageSize",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"User",
+								"following"
+							],
+							"query": [
+								{
+									"key": "pageNumber",
+									"value": null
+								},
+								{
+									"key": "pageSize",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Author",
+			"item": [
+				{
+					"name": "Get All Authors",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Authors/?SortColumn=name&SortOrder=&PageNumber&PageSize=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Authors",
+								""
+							],
+							"query": [
+								{
+									"key": "Query",
+									"value": "00000",
+									"disabled": true
+								},
+								{
+									"key": "SortColumn",
+									"value": "name"
+								},
+								{
+									"key": "SortOrder",
+									"value": "",
+									"description": "asc / desc"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "between 1 and 50"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Author By ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Authors/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Authors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "9fffddb9-38b5-4eb9-bfcf-9032d801422f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Author Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Authors/:{authorId}/books?SortColumn=publisher&SortOrder=desc&PageNumber&PageSize=",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Authors",
+								":{authorId}",
+								"books"
+							],
+							"query": [
+								{
+									"key": "SortColumn",
+									"value": "publisher"
+								},
+								{
+									"key": "SortOrder",
+									"value": "desc",
+									"description": "asc / desc"
+								},
+								{
+									"key": "PageNumber",
+									"value": null
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "between 1 and 50"
+								}
+							],
+							"variable": [
+								{
+									"key": "{authorId}",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Author",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Name",
+									"value": "yahya",
+									"type": "text"
+								},
+								{
+									"key": "Bio",
+									"value": "el author",
+									"type": "text"
+								},
+								{
+									"key": "ProfilePicture",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Author",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "AuthorId",
+									"value": "5",
+									"type": "text"
+								},
+								{
+									"key": "Name",
+									"value": "yahya update",
+									"type": "text"
+								},
+								{
+									"key": "Bio",
+									"value": "el author 22222",
+									"type": "text"
+								},
+								{
+									"key": "ProfilePicture",
+									"type": "file",
+									"src": "/C:/Users/PC/Downloads/enhanced_image.jpg",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Authors",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Authors"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Author",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Authors/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Authors",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "a"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Genre",
+			"item": [
+				{
+					"name": "Get All  Genres",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/genres?Query=yahya&SortColumn=name&SortOrder=desc",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"genres"
+							],
+							"query": [
+								{
+									"key": "Query",
+									"value": "yahya"
+								},
+								{
+									"key": "SortColumn",
+									"value": "name"
+								},
+								{
+									"key": "SortOrder",
+									"value": "desc",
+									"description": "asc / desc"
+								},
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "1",
+									"description": "between 1 and 50",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get GenreBy ID",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/genres/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": "9fffddb9-38b5-4eb9-bfcf-9032d801422f"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Genre",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/genres",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Genre",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"\",\r\n  \"name\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/genres",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"genres"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Genre",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/genres/:id",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"genres",
+								":id"
+							],
+							"variable": [
+								{
+									"key": "id",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Books",
+			"item": [
+				{
+					"name": "Get All Books",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Books/?Query=نجيب",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Books",
+								""
+							],
+							"query": [
+								{
+									"key": "Query",
+									"value": "نجيب"
+								},
+								{
+									"key": "SortColumn",
+									"value": "updatedat",
+									"description": "currentpage, updatedat",
+									"disabled": true
+								},
+								{
+									"key": "SortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Books/:BookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Books",
+								":BookId"
+							],
+							"variable": [
+								{
+									"key": "BookId",
+									"value": "462be1f4-903a-4b98-8f4c-11eb3be41bc3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Books by genre",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Get Book Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/books/:{bookId}/reviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"books",
+								":{bookId}",
+								"reviews"
+							],
+							"query": [
+								{
+									"key": "SortColumn",
+									"value": "ratinG",
+									"description": "CreatedAt - Rating",
+									"disabled": true
+								},
+								{
+									"key": "SortOrder",
+									"value": "asc",
+									"description": "asc / desc",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "",
+									"description": "between 1 and 50",
+									"disabled": true
+								},
+								{
+									"key": "PageNumber",
+									"value": null,
+									"disabled": true
+								}
+							],
+							"variable": [
+								{
+									"key": "{bookId}",
+									"value": "245cbfe9-dd93-44f3-a766-58846e19cfd7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Title",
+									"value": "مصر",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "مصري",
+									"type": "text"
+								},
+								{
+									"key": "ISBN",
+									"value": "asasasasasasa",
+									"type": "text"
+								},
+								{
+									"key": "PublicationDate",
+									"value": "2025-01-04",
+									"type": "text"
+								},
+								{
+									"key": "Language",
+									"value": "عربي",
+									"type": "text"
+								},
+								{
+									"key": "PageCount",
+									"value": "150",
+									"type": "text"
+								},
+								{
+									"key": "Publisher",
+									"value": "سيجما",
+									"type": "text"
+								},
+								{
+									"key": "AuthorId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "CoverImage",
+									"type": "file",
+									"src": [],
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"6201b453-2846-4601-b601-8922ffa86f88\",\r\n  \"title\": \"dddمصؤ\",\r\n  \"description\": \"شيشيشيشيشي\",\r\n  \"isbn\": \"aaaaaaaaaaaa\",\r\n  \"publicationDate\":  \"2024-06-01\",\r\n  \"language\": null,\r\n  \"pageCount\": null,\r\n  \"publisher\": null,\r\n  \"authorId\": \"3\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Books",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Books"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Books/:BookId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Books",
+								":BookId"
+							],
+							"variable": [
+								{
+									"key": "BookId",
+									"value": "462be1f4-903a-4b98-8f4c-11eb3be41bc3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add generes to a book",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\"1\",\"2\",\"3\"]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Books/:{bookid}/genres",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Books",
+								":{bookid}",
+								"genres"
+							],
+							"variable": [
+								{
+									"key": "{bookid}",
+									"value": "6201b453-2846-4601-b601-8922ffa86f88"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove genre from a book",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "Title",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Description",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "ISBN",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "PublicationDate",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Language",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "PageCount",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "Publisher",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "AuthorId",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "GenreIds",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "CoverImage",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Books/:{bookId}/genres/:{genreId}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Books",
+								":{bookId}",
+								"genres",
+								":{genreId}"
+							],
+							"variable": [
+								{
+									"key": "{bookId}",
+									"value": ""
+								},
+								{
+									"key": "{genreId}",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Book Status (Default Shelf)",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Shelves",
+			"item": [
+				{
+					"name": "Get Shelf by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Shelves/:{id}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Shelves",
+								":{id}"
+							],
+							"variable": [
+								{
+									"key": "{id}",
+									"value": "bc419baf-50c8-4e14-a607-a1cdcaa181a7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Shelf",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mammia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Shelves",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Shelves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Shelf",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": \"2c090eb4-ec21-47f2-92bf-ef0cb3197e4a\",\r\n  \"name\": \"ta3mo  manga\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Shelves",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Shelves"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Shelf",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mammia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Shelves/:{id}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Shelves",
+								":{id}"
+							],
+							"variable": [
+								{
+									"key": "{id}",
+									"value": "2c090eb4-ec21-47f2-92bf-ef0cb3197e4a"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add book to shelf",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mammia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Shelves/:{shelfId}/books/:{bookId}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Shelves",
+								":{shelfId}",
+								"books",
+								":{bookId}"
+							],
+							"variable": [
+								{
+									"key": "{shelfId}",
+									"value": ""
+								},
+								{
+									"key": "{bookId}",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove book from shelf",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"name\": \"mammia\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Shelves/:{shelfId}/books/:{bookId}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Shelves",
+								":{shelfId}",
+								"books",
+								":{bookId}"
+							],
+							"variable": [
+								{
+									"key": "{shelfId}",
+									"value": ""
+								},
+								{
+									"key": "{bookId}",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Author Claim Requests",
+			"item": [
+				{
+					"name": "Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/author-claims/request ",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"author-claims",
+								"request "
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Review",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"requestId\": \"09976415-ca5d-4f7e-a6e8-16ea874af362\",\r\n  \"approve\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/author-claims/review",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"author-claims",
+								"review"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Claim Requests",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/author-claims?Status=approved &SortColumn=requestedat&SortOrder=desc&PageNumber=1&PageSize=15",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"author-claims"
+							],
+							"query": [
+								{
+									"key": "Status",
+									"value": "approved ",
+									"description": "pending , approved , rejected"
+								},
+								{
+									"key": "SortColumn",
+									"value": "requestedat"
+								},
+								{
+									"key": "SortOrder",
+									"value": "desc",
+									"description": "asc - desc"
+								},
+								{
+									"key": "PageNumber",
+									"value": "1"
+								},
+								{
+									"key": "PageSize",
+									"value": "15",
+									"description": "1 - 50"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Quotes",
+			"item": [
+				{
+					"name": "Get All Quotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Quotes?Tag=ص&Query=a",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Quotes"
+							],
+							"query": [
+								{
+									"key": "Tag",
+									"value": "ص"
+								},
+								{
+									"key": "Query",
+									"value": "a"
+								},
+								{
+									"key": "SortColumn",
+									"value": "createdat",
+									"disabled": true
+								},
+								{
+									"key": "SortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "UserId",
+									"value": "a935a6f6-ad0b-4644-8856-8a3d35b9efd8",
+									"disabled": true
+								},
+								{
+									"key": "AuthorId",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "BookId",
+									"value": "1",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All my Quotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Quotes/me",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Quotes",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Quote By Id",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "Toggle Like",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Quotes/:{id}/like",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Quotes",
+								":{id}",
+								"like"
+							],
+							"variable": [
+								{
+									"key": "{id}",
+									"value": "032ff2eb-75d7-4464-94d9-50d88506e001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Quote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"text\": \"يحيي سعد\",\r\n  \"authorId\": \"4\",\r\n  \"bookId\": \"0317ab17-038c-4c3f-8838-9894fdbe7831\",\r\n  \"tags\": [\r\n    \"اسم\",\r\n    \"wow\",\r\n    \"yahya\"\r\n  ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Quotes",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Quotes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Quote",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"QuoteId\":\"\",\r\n  \"text\": \"updated tags\",\r\n  \"Tags\":[\"me\" , \"updated\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Quotes/:{id}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Quotes",
+								":{id}"
+							],
+							"variable": [
+								{
+									"key": "{id}",
+									"value": "20c3502d-65fc-4bab-985d-9c953e22ad38"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Quote",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Quotes/:{id}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Quotes",
+								":{id}"
+							],
+							"variable": [
+								{
+									"key": "{id}",
+									"value": "20c3502d-65fc-4bab-985d-9c953e22ad38"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reading Progress",
+			"item": [
+				{
+					"name": "Get Reading Progress",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/ReadingProgress?SortColumn=updatedat&SortOrder=desc&PageNumber=1&PageSize=1",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ReadingProgress"
+							],
+							"query": [
+								{
+									"key": "SortColumn",
+									"value": "updatedat",
+									"description": "currentpage, updatedat"
+								},
+								{
+									"key": "SortOrder",
+									"value": "desc"
+								},
+								{
+									"key": "PageNumber",
+									"value": "1"
+								},
+								{
+									"key": "PageSize",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Reading Progress",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": null,\r\n  \"currentPage\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/ReadingProgress",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"ReadingProgress"
+							],
+							"query": [
+								{
+									"key": "SortColumn",
+									"value": "createdat",
+									"disabled": true
+								},
+								{
+									"key": "SortOrder",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "UserId",
+									"value": "a935a6f6-ad0b-4644-8856-8a3d35b9efd8",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Year Challenge",
+			"item": [
+				{
+					"name": "Upsert Challenge",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"targetBooksCount\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/UserYearChallenge/upsert",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"UserYearChallenge",
+								"upsert"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Challenge for a year",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/UserYearChallenge/:{year}?UserId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"UserYearChallenge",
+								":{year}"
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": null,
+									"description": "Required"
+								}
+							],
+							"variable": [
+								{
+									"key": "{year}",
+									"value": "2025"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Years Challenges",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/UserYearChallenge/?UserId=9cea575c-2360-4d52-93e0-f56a55800f01",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"UserYearChallenge",
+								""
+							],
+							"query": [
+								{
+									"key": "UserId",
+									"value": "9cea575c-2360-4d52-93e0-f56a55800f01",
+									"description": "Required"
+								},
+								{
+									"key": "SortColumn",
+									"value": "year",
+									"description": "year, completedbookscount, targetbookscount",
+									"disabled": true
+								},
+								{
+									"key": "SortOrder",
+									"value": "asc",
+									"disabled": true
+								},
+								{
+									"key": "PageNumber",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "PageSize",
+									"value": "2",
+									"disabled": true
+								},
+								{
+									"key": "UserId",
+									"value": "a935a6f6-ad0b-4644-8856-8a3d35b9efd8",
+									"disabled": true
+								},
+								{
+									"key": "Year",
+									"value": "2025",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get Review By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Reviews/:{ReviewId}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Reviews",
+								":{ReviewId}"
+							],
+							"variable": [
+								{
+									"key": "{ReviewId}",
+									"value": "1bebad37-85a8-4271-9f91-1baaf6ef5b28"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookId\": \"f7d0257e-fb0d-4fea-baa4-3ef1fd4e07a8\",\r\n  \"rating\": 10,\r\n  \"reviewText\": \"حلو وبسمسم\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/BookReviews",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"BookReviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Review",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"rating\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/api/Reviews/:{ReviewId}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Reviews",
+								":{ReviewId}"
+							],
+							"variable": [
+								{
+									"key": "{ReviewId}",
+									"value": "1bebad37-85a8-4271-9f91-1baaf6ef5b28"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/api/Reviews/:{ReviewId}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"Reviews",
+								":{ReviewId}"
+							],
+							"variable": [
+								{
+									"key": "{ReviewId}",
+									"value": "1bebad37-85a8-4271-9f91-1baaf6ef5b28"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{baseUrl}}/healthz",
+					"host": [
+						"{{baseUrl}}"
+					],
+					"path": [
+						"healthz"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "token",
+				"value": "{{accessToken}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
