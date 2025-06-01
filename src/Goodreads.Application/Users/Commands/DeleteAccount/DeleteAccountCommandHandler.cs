@@ -1,10 +1,4 @@
-﻿
-using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-using SharedKernel;
-
-namespace Goodreads.Application.Users.Commands.DeleteAccount;
+﻿namespace Goodreads.Application.Users.Commands.DeleteAccount;
 internal class DeleteAccountCommandHandler : IRequestHandler<DeleteAccountCommand, Result>
 {
     private readonly ILogger<DeleteAccountCommandHandler> _logger;

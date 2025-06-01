@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Genres.Commands.UpdateGenre;
+﻿namespace Goodreads.Application.Genres.Commands.UpdateGenre;
 
 internal class UpdateGenreCommandValidator : AbstractValidator<UpdateGenreCommand>
 {

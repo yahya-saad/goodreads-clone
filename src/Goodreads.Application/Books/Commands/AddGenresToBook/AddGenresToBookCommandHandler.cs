@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Books.Commands.AddGenresToBook;
+﻿namespace Goodreads.Application.Books.Commands.AddGenresToBook;
 internal class AddGenresToBookCommandHandler : IRequestHandler<AddGenresToBookCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

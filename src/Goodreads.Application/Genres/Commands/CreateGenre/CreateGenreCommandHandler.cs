@@ -1,6 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-
-namespace Goodreads.Application.Genres.Commands.CreateGenre;
+﻿namespace Goodreads.Application.Genres.Commands.CreateGenre;
 
 internal class CreateGenreCommandHandler : IRequestHandler<CreateGenreCommand, Result<string>>
 {

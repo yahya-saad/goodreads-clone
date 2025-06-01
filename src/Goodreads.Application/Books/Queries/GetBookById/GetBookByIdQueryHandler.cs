@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Books.Queries.GetBookById;
+﻿namespace Goodreads.Application.Books.Queries.GetBookById;
 internal class GetBookByIdQueryHandler : IRequestHandler<GetBookByIdQuery, Result<BookDetailDto>>
 {
     private readonly IUnitOfWork _unitOfWork;

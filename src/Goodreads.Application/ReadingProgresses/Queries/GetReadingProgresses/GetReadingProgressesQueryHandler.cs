@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.Common.Responses;
-using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.ReadingProgresses.Queries.GetReadingProgresses;
+﻿namespace Goodreads.Application.ReadingProgresses.Queries.GetReadingProgresses;
 
 internal class GetReadingProgressesQueryHandler : IRequestHandler<GetReadingProgressesQuery, PagedResult<ReadingProgressDto>>
 {

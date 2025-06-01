@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Behaviors;
+﻿using Goodreads.Application.Common.Behaviors;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Goodreads.Application;

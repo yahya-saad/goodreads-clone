@@ -1,9 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Users.Queries.GetUserSocials;
+﻿namespace Goodreads.Application.Users.Queries.GetUserSocials;
 internal class GetUserSocialsQueryHandler : IRequestHandler<GetUserSocialsQuery, Result<SocialDto>>
 {
     private readonly IUserContext _userContext;

@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using SharedKernel;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 
 namespace Goodreads.Application.Auth.Commands.RefreshToken;
 internal class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, Result<AuthResultDto>>

@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Auth.Commands.LoginUser;
+﻿namespace Goodreads.Application.Auth.Commands.LoginUser;
 public class LoginUserCommandValidator : AbstractValidator<LoginUserCommand>
 {
     public LoginUserCommandValidator()

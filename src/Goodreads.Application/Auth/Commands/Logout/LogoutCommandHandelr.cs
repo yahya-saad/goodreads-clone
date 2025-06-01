@@ -1,8 +1,4 @@
-﻿
-using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Auth.Commands.Logout;
+﻿namespace Goodreads.Application.Auth.Commands.Logout;
 internal class LogoutCommandHandelr : IRequestHandler<LogoutCommand, Result>
 {
     private readonly IRefreshTokenRepository _refreshTokenRepository;

@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Genres.Commands.UpdateGenre;
+﻿namespace Goodreads.Application.Genres.Commands.UpdateGenre;
 
 internal class UpdateGenreCommandHandler : IRequestHandler<UpdateGenreCommand, Result>
 {

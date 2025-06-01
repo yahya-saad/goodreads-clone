@@ -1,4 +1,2 @@
-﻿using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.Users.Queries.GetUserProfile;
+﻿namespace Goodreads.Application.Users.Queries.GetUserProfile;
 public class GetUserProfileQuery : IRequest<Result<UserProfileDto>>;

@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Common.Behaviors;
+﻿namespace Goodreads.Application.Common.Behaviors;
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
 {
     private readonly IEnumerable<IValidator<TRequest>> _validators;

@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.UserFollows.Commands.UnfollowUser;
+﻿namespace Goodreads.Application.UserFollows.Commands.UnfollowUser;
 internal class UnfollowUserCommandHandler : IRequestHandler<UnfollowUserCommand, Result>
 {
     private readonly ILogger<UnfollowUserCommandHandler> _logger;

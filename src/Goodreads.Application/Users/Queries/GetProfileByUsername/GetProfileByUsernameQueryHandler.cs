@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Users.Queries.GetProfileByUsername;
+﻿namespace Goodreads.Application.Users.Queries.GetProfileByUsername;
 internal class GetProfileByUsernameQueryHandler : IRequestHandler<GetProfileByUsernameQuery, Result<UserProfileDto>>
 {
     private readonly ILogger<GetProfileByUsernameQueryHandler> _logger;

@@ -1,6 +1,5 @@
 ﻿using Goodreads.Application.Common.Attributes;
 using Microsoft.AspNetCore.Http;
-using SharedKernel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Goodreads.Application.Users.Commands.UpdateProfilePicture;

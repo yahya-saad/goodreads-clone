@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Shelves.Commands.AddBookToShelf;
+﻿namespace Goodreads.Application.Shelves.Commands.AddBookToShelf;
 public class AddBookToShelfCommandValidator : AbstractValidator<AddBookToShelfCommand>
 {
     public AddBookToShelfCommandValidator()

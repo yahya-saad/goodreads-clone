@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Constants;
-using Goodreads.Domain.Errors;
-
+﻿
 namespace Goodreads.Application.Authors.Commands.UpdateAuthor;
 internal class UpdateAuthorCommandHandler : IRequestHandler<UpdateAuthorCommand, Result>
 {

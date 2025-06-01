@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Validation;
+﻿using Goodreads.Application.Common.Validation;
 
 namespace Goodreads.Application.Authors.Queries.GetAllAuthors;
 public class GetAllAuthorsQueryValidator : AbstractValidator<GetAllAuthorsQuery>

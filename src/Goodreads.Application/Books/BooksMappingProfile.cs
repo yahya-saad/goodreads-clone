@@ -1,6 +1,5 @@
 ﻿using Goodreads.Application.Books.Commands.CreateBook;
 using Goodreads.Application.Books.Commands.UpdateBook;
-using Goodreads.Application.DTOs;
 
 namespace Goodreads.Application.Books;
 public class BooksMappingProfile : Profile

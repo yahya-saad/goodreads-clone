@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Shelves.Commands.RemoveBookFromShelf;
+﻿namespace Goodreads.Application.Shelves.Commands.RemoveBookFromShelf;
 public class RemoveBookFromShelfCommandValidator : AbstractValidator<RemoveBookFromShelfCommand>
 {
     public RemoveBookFromShelfCommandValidator()

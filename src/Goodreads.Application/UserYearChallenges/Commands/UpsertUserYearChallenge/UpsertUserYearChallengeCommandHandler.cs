@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.UserYearChallenges.Commands.UpdateUserYearChallenge;
+﻿namespace Goodreads.Application.UserYearChallenges.Commands.UpdateUserYearChallenge;
 public class UpsertUserYearChallengeCommandHandler : IRequestHandler<UpsertUserYearChallengeCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.UserYearChallenges.Commands.UpdateUserYearChallenge;
+﻿namespace Goodreads.Application.UserYearChallenges.Commands.UpdateUserYearChallenge;
 
 public class UpsertUserYearChallengeCommandValidator : AbstractValidator<UpsertUserYearChallengeCommand>
 {

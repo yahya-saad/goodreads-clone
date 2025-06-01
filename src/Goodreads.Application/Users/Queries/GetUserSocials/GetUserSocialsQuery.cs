@@ -1,4 +1,2 @@
-﻿using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.Users.Queries.GetUserSocials;
+﻿namespace Goodreads.Application.Users.Queries.GetUserSocials;
 public class GetUserSocialsQuery : IRequest<Result<SocialDto>>;

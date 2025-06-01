@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Authors.Queries.GetAuthorById;
+﻿namespace Goodreads.Application.Authors.Queries.GetAuthorById;
 internal class GetAuthorByIdQueryHandler : IRequestHandler<GetAuthorByIdQuery, Result<AuthorDto>>
 {
     private readonly IUnitOfWork _unitOfWork;

@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Quotes.Commands.CreateQuote;
+﻿namespace Goodreads.Application.Quotes.Commands.CreateQuote;
 public class CreateQuoteCommandHandler : IRequestHandler<CreateQuoteCommand, Result<string>>
 {
     private readonly IUnitOfWork _unitOfWork;

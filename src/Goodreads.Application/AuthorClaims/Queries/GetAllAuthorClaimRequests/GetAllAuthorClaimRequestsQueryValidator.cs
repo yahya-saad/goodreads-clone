@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.AuthorClaims.Queries.GetAllAuthorClaimRequests;
+﻿namespace Goodreads.Application.AuthorClaims.Queries.GetAllAuthorClaimRequests;
 public class GetAllAuthorClaimRequestsQueryValidator : AbstractValidator<GetAllAuthorClaimRequestsQuery>
 {
     private readonly string[] allowedSortColumns = { "authorid", "requestedat", "reviewedat" };

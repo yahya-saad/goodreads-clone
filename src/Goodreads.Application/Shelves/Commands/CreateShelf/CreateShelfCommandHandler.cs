@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Shelves.Commands.CreateShelf;
+﻿namespace Goodreads.Application.Shelves.Commands.CreateShelf;
 internal class CreateShelfCommandHandler : IRequestHandler<CreateShelfCommand, Result<string>>
 {
     private readonly IUnitOfWork _unitOfWork;

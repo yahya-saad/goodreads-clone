@@ -1,7 +1,4 @@
-﻿using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Auth.Commands.ConfirmEmail;
+﻿namespace Goodreads.Application.Auth.Commands.ConfirmEmail;
 internal class ConfirmEmailCommandHandler : IRequestHandler<ConfirmEmailCommand, Result<bool>>
 {
     private readonly UserManager<User> _userManager;

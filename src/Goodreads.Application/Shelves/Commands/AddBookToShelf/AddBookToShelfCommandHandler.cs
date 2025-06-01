@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Shelves.Commands.AddBookToShelf;
+﻿namespace Goodreads.Application.Shelves.Commands.AddBookToShelf;
 internal class AddBookToShelfCommandHandler : IRequestHandler<AddBookToShelfCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

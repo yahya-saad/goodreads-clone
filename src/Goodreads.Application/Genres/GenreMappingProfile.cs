@@ -1,6 +1,4 @@
-﻿using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.Genres;
+﻿namespace Goodreads.Application.Genres;
 public class GenreMappingProfile : Profile
 {
     public GenreMappingProfile()

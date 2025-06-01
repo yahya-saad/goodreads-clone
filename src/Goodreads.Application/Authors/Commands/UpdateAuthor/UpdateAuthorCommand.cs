@@ -1,7 +1,6 @@
 ﻿using Goodreads.Application.Common.Attributes;
 using Goodreads.Application.Common.Interfaces.Authorization;
 using Microsoft.AspNetCore.Http;
-using SharedKernel;
 
 namespace Goodreads.Application.Authors.Commands.UpdateAuthor;
 public class UpdateAuthorCommand : IRequest<Result>, IRequireAuthorAuthorization

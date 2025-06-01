@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Users.Queries.GetProfileByUsername;
+﻿namespace Goodreads.Application.Users.Queries.GetProfileByUsername;
 public class GetProfileByUsernameQueryValidator : AbstractValidator<GetProfileByUsernameQuery>
 {
     public GetProfileByUsernameQueryValidator()

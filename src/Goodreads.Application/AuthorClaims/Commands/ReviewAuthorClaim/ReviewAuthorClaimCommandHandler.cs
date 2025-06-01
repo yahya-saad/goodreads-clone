@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.AuthorClaims.Commands.ReviewAuthorClaim;
+﻿namespace Goodreads.Application.AuthorClaims.Commands.ReviewAuthorClaim;
 public class ReviewAuthorClaimHandler : IRequestHandler<ReviewAuthorClaimCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

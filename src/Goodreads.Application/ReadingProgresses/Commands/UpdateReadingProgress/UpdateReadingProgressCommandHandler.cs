@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Constants;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.ReadingProgresses.Commands.UpdateReadingProgress;
+﻿namespace Goodreads.Application.ReadingProgresses.Commands.UpdateReadingProgress;
 
 public class UpdateReadingProgressCommandHandler : IRequestHandler<UpdateReadingProgressCommand, Result>
 {

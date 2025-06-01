@@ -1,9 +1,4 @@
-﻿
-using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Users.Commands.DeleteProfilePicture;
+﻿namespace Goodreads.Application.Users.Commands.DeleteProfilePicture;
 internal class DeleteProfilePictureCommandHandler : IRequestHandler<DeleteProfilePictureCommand, Result>
 {
     private readonly ILogger<DeleteProfilePictureCommandHandler> _logger;

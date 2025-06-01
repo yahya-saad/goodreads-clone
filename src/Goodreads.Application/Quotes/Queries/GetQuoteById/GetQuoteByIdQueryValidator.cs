@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Quotes.Queries.GetQuoteById;
+﻿namespace Goodreads.Application.Quotes.Queries.GetQuoteById;
 internal class GetQuoteByIdQueryValidator : AbstractValidator<GetQuoteByIdQuery>
 {
     public GetQuoteByIdQueryValidator()

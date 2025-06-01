@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Validation;
+﻿using Goodreads.Application.Common.Validation;
 
 namespace Goodreads.Application.Books.Queries.GetBooksByGenre;
 public class GetBooksByGenreQueryValidator : AbstractValidator<GetBooksByGenreQuery>

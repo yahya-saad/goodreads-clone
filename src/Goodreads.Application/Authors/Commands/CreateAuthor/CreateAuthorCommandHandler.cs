@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Constants;
-
-namespace Goodreads.Application.Authors.Commands.CreateAuthor;
+﻿namespace Goodreads.Application.Authors.Commands.CreateAuthor;
 internal class CreateAuthorCommandHandler : IRequestHandler<CreateAuthorCommand, Result<string>>
 {
     private readonly IUnitOfWork _unitOfWork;

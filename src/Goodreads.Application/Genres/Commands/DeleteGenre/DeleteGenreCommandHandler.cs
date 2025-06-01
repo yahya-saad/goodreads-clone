@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Genres.Commands.DeleteGenre;
+﻿namespace Goodreads.Application.Genres.Commands.DeleteGenre;
 
 internal class DeleteGenreCommandHandler : IRequestHandler<DeleteGenreCommand, Result>
 {

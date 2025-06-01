@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Responses;
-
-namespace Goodreads.Application.Common.Validation;
+﻿namespace Goodreads.Application.Common.Validation;
 public class QueryParametersValidator : AbstractValidator<QueryParameters>
 {
     public QueryParametersValidator()

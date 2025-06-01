@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Interfaces;
-
-namespace Goodreads.Application.Quotes.Commands.UpdateQuote;
+﻿namespace Goodreads.Application.Quotes.Commands.UpdateQuote;
 internal class UpdateQuoteCommandValidator : AbstractValidator<UpdateQuoteCommand>
 {
     private readonly IUnitOfWork unitOfWork;

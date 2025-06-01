@@ -1,9 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Constants;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Users.Commands.UpdateProfilePicture;
+﻿namespace Goodreads.Application.Users.Commands.UpdateProfilePicture;
 internal class UpdateProfilePictureCommandHandler : IRequestHandler<UpdateProfilePictureCommand, Result>
 {
     private readonly ILogger<UpdateProfilePictureCommandHandler> _logger;

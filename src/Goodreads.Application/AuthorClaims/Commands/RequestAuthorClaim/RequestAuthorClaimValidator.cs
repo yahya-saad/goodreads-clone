@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.AuthorClaims.Commands.RequestAuthorClaim;
+﻿namespace Goodreads.Application.AuthorClaims.Commands.RequestAuthorClaim;
 public class RequestAuthorClaimValidator : AbstractValidator<RequestAuthorClaimCommand>
 {
     public RequestAuthorClaimValidator()

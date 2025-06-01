@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Shelves.Queries.GetShelfById;
+﻿namespace Goodreads.Application.Shelves.Queries.GetShelfById;
 
 internal class GetShelfByIdQueryHandler : IRequestHandler<GetShelfByIdQuery, Result<ShelfDto>>
 {

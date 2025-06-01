@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Authors.Commands.CreateAuthor;
+﻿namespace Goodreads.Application.Authors.Commands.CreateAuthor;
 public class CreateAuthorCommandValidator : AbstractValidator<CreateAuthorCommand>
 {
     public CreateAuthorCommandValidator()

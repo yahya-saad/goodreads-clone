@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Books.Commands.UpdateBook;
+﻿namespace Goodreads.Application.Books.Commands.UpdateBook;
 internal class UpdateBookCommandHandler : IRequestHandler<UpdateBookCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

@@ -1,6 +1,4 @@
-﻿using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.UserYearChallenges;
+﻿namespace Goodreads.Application.UserYearChallenges;
 public class UserYearChallengeMappingProfile : Profile
 {
     public UserYearChallengeMappingProfile()

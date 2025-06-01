@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Validation;
+﻿using Goodreads.Application.Common.Validation;
 
 namespace Goodreads.Application.UserYearChallenges.Queries.GetAllUserYearChallenges;
 public class GetAllUserYearChallengesQueryValidator : AbstractValidator<GetAllUserYearChallengesQuery>

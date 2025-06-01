@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Auth.Commands.ResetPassword;
+﻿namespace Goodreads.Application.Auth.Commands.ResetPassword;
 public class ResetPasswordCommandValidator : AbstractValidator<ResetPasswordCommand>
 {
     public ResetPasswordCommandValidator()

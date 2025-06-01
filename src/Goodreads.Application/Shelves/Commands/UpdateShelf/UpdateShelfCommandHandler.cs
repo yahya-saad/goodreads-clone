@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Shelves.Commands.UpdateShelf;
+﻿namespace Goodreads.Application.Shelves.Commands.UpdateShelf;
 internal class UpdateShelfCommandHandler : IRequestHandler<UpdateShelfCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

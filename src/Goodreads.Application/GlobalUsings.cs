@@ -1,5 +1,13 @@
 ﻿global using AutoMapper;
+global using FluentValidation;
 global using Goodreads.Application.Common;
+global using Goodreads.Application.Common.Interfaces;
+global using Goodreads.Application.Common.Responses;
+global using Goodreads.Application.DTOs;
+global using Goodreads.Domain.Constants;
 global using Goodreads.Domain.Entities;
+global using Goodreads.Domain.Errors;
 global using MediatR;
+global using Microsoft.AspNetCore.Identity;
 global using Microsoft.Extensions.Logging;
+global using SharedKernel;

@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Books.Commands.RemoveGenreFromBook;
+﻿namespace Goodreads.Application.Books.Commands.RemoveGenreFromBook;
 public class RemoveGenreFromBookCommandValidator : AbstractValidator<RemoveGenreFromBookCommand>
 {
     public RemoveGenreFromBookCommandValidator()

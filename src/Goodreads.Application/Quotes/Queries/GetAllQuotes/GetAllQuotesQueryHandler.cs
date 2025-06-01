@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.Common.Responses;
-using Goodreads.Application.DTOs;
-using System.Linq.Expressions;
+﻿using System.Linq.Expressions;
 
 namespace Goodreads.Application.Quotes.Queries.GetAllQuotes;
 public class GetAllQuotesQueryHandler : IRequestHandler<GetAllQuotesQuery, PagedResult<QuoteDto>>

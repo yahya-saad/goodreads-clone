@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.UserYearChallenges.Queries.GetUserYearChallenge;
+﻿namespace Goodreads.Application.UserYearChallenges.Queries.GetUserYearChallenge;
 
 public class GetUserYearChallengeQueryValidator : AbstractValidator<GetUserYearChallengeQuery>
 {

@@ -1,6 +1,4 @@
-﻿using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.ReadingProgresses;
+﻿namespace Goodreads.Application.ReadingProgresses;
 public class ReadingProgressMappingProfile : Profile
 {
     public ReadingProgressMappingProfile()

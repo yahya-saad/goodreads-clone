@@ -1,9 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Users.Queries.GetUserProfile;
+﻿namespace Goodreads.Application.Users.Queries.GetUserProfile;
 internal class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, Result<UserProfileDto>>
 {
     private readonly UserManager<User> _userManager;

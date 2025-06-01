@@ -1,5 +1,4 @@
 ﻿using Microsoft.AspNetCore.Http;
-using SharedKernel;
 using System.ComponentModel.DataAnnotations;
 
 namespace Goodreads.Application.Common.Attributes;

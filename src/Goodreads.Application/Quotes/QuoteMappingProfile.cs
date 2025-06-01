@@ -1,5 +1,4 @@
-﻿using Goodreads.Application.DTOs;
-using Goodreads.Application.Quotes.Commands.CreateQuote;
+﻿using Goodreads.Application.Quotes.Commands.CreateQuote;
 
 namespace Goodreads.Application.Quotes;
 public class QuoteMappingProfile : Profile

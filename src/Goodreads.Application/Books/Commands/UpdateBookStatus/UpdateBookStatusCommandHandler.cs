@@ -1,9 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Constants;
-using Goodreads.Domain.Errors;
-using SharedKernel;
-
-namespace Goodreads.Application.Books.Commands.UpdateBookStatus;
+﻿namespace Goodreads.Application.Books.Commands.UpdateBookStatus;
 
 public class UpdateBookStatusCommandHandler : IRequestHandler<UpdateBookStatusCommand, Result>
 {

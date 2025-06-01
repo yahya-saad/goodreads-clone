@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Users.Commands.ChangePassword;
+﻿namespace Goodreads.Application.Users.Commands.ChangePassword;
 public class ChangePasswordCommandValidator : AbstractValidator<ChangePasswordCommand>
 {
     public ChangePasswordCommandValidator()

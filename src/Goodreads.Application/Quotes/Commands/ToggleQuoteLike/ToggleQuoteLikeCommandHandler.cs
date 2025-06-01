@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Quotes.Commands.ToggleQuoteLike;
+﻿namespace Goodreads.Application.Quotes.Commands.ToggleQuoteLike;
 public class ToggleQuoteLikeCommandHandler : IRequestHandler<ToggleQuoteLikeCommand, Result<bool>>
 {
     private readonly IUnitOfWork _unitOfWork;

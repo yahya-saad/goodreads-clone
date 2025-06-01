@@ -1,7 +1,4 @@
 ﻿using Goodreads.Application.Common.Extensions;
-using Goodreads.Application.Common.Responses;
-using Goodreads.Application.DTOs;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Goodreads.Application.Users.Queries.GetAllUsers;

@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.UserFollows.Commands.FollowUser;
+﻿namespace Goodreads.Application.UserFollows.Commands.FollowUser;
 internal class FollowUserCommandHandler : IRequestHandler<FollowUserCommand, Result>
 {
     private readonly ILogger<FollowUserCommandHandler> _logger;

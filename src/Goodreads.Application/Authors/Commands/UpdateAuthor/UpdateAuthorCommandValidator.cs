@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Authors.Commands.UpdateAuthor;
+﻿namespace Goodreads.Application.Authors.Commands.UpdateAuthor;
 internal class UpdateAuthorCommandValidator : AbstractValidator<UpdateAuthorCommand>
 {
     public UpdateAuthorCommandValidator()

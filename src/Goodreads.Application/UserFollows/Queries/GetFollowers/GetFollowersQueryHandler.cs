@@ -1,10 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.Common.Responses;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.UserFollows.Queries.GetFollowers;
+﻿namespace Goodreads.Application.UserFollows.Queries.GetFollowers;
 internal class GetFollowersQueryHandler : IRequestHandler<GetFollowersQuery, Result<PagedResult<UserDto>>>
 {
     private readonly IUserFollowRepository _userFollowRepository;

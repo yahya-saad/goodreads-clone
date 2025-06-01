@@ -1,5 +1,4 @@
-﻿using FluentValidation;
-namespace Goodreads.Application.Users.Commands.UpdateSocials;
+﻿namespace Goodreads.Application.Users.Commands.UpdateSocials;
 
 public class UpdateSocialsCommandValidator : AbstractValidator<UpdateSocialsCommand>
 {

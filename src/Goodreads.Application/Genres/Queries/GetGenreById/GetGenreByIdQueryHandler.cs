@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Genres.Queries.GetGenreById;
+﻿namespace Goodreads.Application.Genres.Queries.GetGenreById;
 
 internal class GetGenreByIdQueryHandler : IRequestHandler<GetGenreByIdQuery, Result<GenreDto>>
 {

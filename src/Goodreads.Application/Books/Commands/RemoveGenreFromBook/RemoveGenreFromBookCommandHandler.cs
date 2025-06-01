@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Books.Commands.RemoveGenreFromBook;
+﻿namespace Goodreads.Application.Books.Commands.RemoveGenreFromBook;
 internal class RemoveGenreFromBookCommandHandler : IRequestHandler<RemoveGenreFromBookCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

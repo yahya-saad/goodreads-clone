@@ -1,6 +1,4 @@
-﻿using Goodreads.Domain.Constants;
-
-namespace Goodreads.Application.Books.Commands.UpdateBookStatus;
+﻿namespace Goodreads.Application.Books.Commands.UpdateBookStatus;
 using FluentValidation;
 using Goodreads.Application.Common.Interfaces;
 

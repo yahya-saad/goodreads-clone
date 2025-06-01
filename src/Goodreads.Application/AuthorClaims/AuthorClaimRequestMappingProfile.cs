@@ -1,6 +1,4 @@
-﻿using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.AuthorClaims;
+﻿namespace Goodreads.Application.AuthorClaims;
 public class AuthorClaimRequestProfile : Profile
 {
     public AuthorClaimRequestProfile()

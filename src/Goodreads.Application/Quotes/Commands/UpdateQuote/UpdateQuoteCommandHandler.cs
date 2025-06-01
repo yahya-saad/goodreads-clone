@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Quotes.Commands.UpdateQuote;
+﻿namespace Goodreads.Application.Quotes.Commands.UpdateQuote;
 
 public class UpdateQuoteCommandHandler : IRequestHandler<UpdateQuoteCommand, Result>
 {

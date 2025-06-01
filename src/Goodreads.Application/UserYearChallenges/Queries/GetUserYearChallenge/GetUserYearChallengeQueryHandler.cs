@@ -1,9 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Constants;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.UserYearChallenges.Queries.GetUserYearChallenge;
+﻿namespace Goodreads.Application.UserYearChallenges.Queries.GetUserYearChallenge;
 public class GetUserYearChallengeQueryHandler : IRequestHandler<GetUserYearChallengeQuery, Result<UserYearChallengeDetailsDto>>
 {
     private readonly IUnitOfWork _unitOfWork;

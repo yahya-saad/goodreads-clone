@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.DTOs;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-using System.IdentityModel.Tokens.Jwt;
+﻿using System.IdentityModel.Tokens.Jwt;
 
 namespace Goodreads.Application.Auth.Commands.LoginUser;
 internal class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, Result<AuthResultDto>>

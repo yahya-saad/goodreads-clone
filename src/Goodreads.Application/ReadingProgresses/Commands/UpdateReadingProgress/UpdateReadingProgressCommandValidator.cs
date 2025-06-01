@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Interfaces;
-
-namespace Goodreads.Application.ReadingProgresses.Commands.UpdateReadingProgress;
+﻿namespace Goodreads.Application.ReadingProgresses.Commands.UpdateReadingProgress;
 
 public class UpdateReadingProgressCommandValidator : AbstractValidator<UpdateReadingProgressCommand>
 {

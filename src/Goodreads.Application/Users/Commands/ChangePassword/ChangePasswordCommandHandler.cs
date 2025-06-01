@@ -1,9 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-using SharedKernel;
-
-namespace Goodreads.Application.Users.Commands.ChangePassword;
+﻿namespace Goodreads.Application.Users.Commands.ChangePassword;
 internal class ChangePasswordCommandHandler : IRequestHandler<ChangePasswordCommand, Result>
 {
     private readonly ILogger<ChangePasswordCommandHandler> _logger;

@@ -1,7 +1,4 @@
-﻿using FluentValidation;
-using Goodreads.Application.Common.Interfaces;
-
-namespace Goodreads.Application.Quotes.Commands.CreateQuote;
+﻿namespace Goodreads.Application.Quotes.Commands.CreateQuote;
 public class CreateQuoteCommandValidator : AbstractValidator<CreateQuoteCommand>
 {
     private readonly IUnitOfWork _unitOfWork;

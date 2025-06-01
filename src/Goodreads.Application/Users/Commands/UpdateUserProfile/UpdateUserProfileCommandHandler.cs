@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Users.Commands.UpdateUserProfile;
+﻿namespace Goodreads.Application.Users.Commands.UpdateUserProfile;
 internal class UpdateUserProfileCommandHandler : IRequestHandler<UpdateUserProfileCommand, Result>
 {
     private readonly UserManager<User> _userManager;

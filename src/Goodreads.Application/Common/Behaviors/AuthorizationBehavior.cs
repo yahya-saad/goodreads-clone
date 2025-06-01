@@ -1,5 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Application.Common.Interfaces.Authorization;
+﻿using Goodreads.Application.Common.Interfaces.Authorization;
 
 namespace Goodreads.Application.Common.Behaviors;
 public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>

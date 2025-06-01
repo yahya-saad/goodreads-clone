@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using SharedKernel;
-
-namespace Goodreads.Application.Shelves.Commands.DeleteShelf;
+﻿namespace Goodreads.Application.Shelves.Commands.DeleteShelf;
 internal class DeleteShelfCommandHandler : IRequestHandler<DeleteShelfCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;

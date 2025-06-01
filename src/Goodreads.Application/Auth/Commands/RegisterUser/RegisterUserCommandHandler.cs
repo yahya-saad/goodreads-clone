@@ -1,8 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Constants;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-using System.Net;
+﻿using System.Net;
 
 namespace Goodreads.Application.Auth.Commands.RegisterUser;
 internal class RegisterUserCommandHandler : IRequestHandler<RegisterUserCommand, Result<string>>

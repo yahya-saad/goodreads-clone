@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Shelves.Commands.UpdateShelf;
+﻿namespace Goodreads.Application.Shelves.Commands.UpdateShelf;
 internal class UpdateShelfCommandValidator : AbstractValidator<UpdateShelfCommand>
 {
     public UpdateShelfCommandValidator()

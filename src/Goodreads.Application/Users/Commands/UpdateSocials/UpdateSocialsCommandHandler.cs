@@ -1,9 +1,4 @@
-﻿
-using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Users.Commands.UpdateSocials;
+﻿namespace Goodreads.Application.Users.Commands.UpdateSocials;
 internal class UpdateSocialsCommandHandler : IRequestHandler<UpdateSocialsCommand, Result>
 {
     private readonly UserManager<User> _userManager;

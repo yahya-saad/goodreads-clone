@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Users.Commands.UpdateUserProfile;
+﻿namespace Goodreads.Application.Users.Commands.UpdateUserProfile;
 public class UpdateUserProfileCommandValidator : AbstractValidator<UpdateUserProfileCommand>
 {
     public UpdateUserProfileCommandValidator()

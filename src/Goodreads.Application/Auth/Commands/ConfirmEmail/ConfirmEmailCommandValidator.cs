@@ -1,6 +1,4 @@
-﻿using FluentValidation;
-
-namespace Goodreads.Application.Auth.Commands.ConfirmEmail;
+﻿namespace Goodreads.Application.Auth.Commands.ConfirmEmail;
 public class ConfirmEmailCommandValidator : AbstractValidator<ConfirmEmailCommand>
 {
     public ConfirmEmailCommandValidator()

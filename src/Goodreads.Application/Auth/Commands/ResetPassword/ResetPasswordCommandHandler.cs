@@ -1,7 +1,4 @@
-﻿using Goodreads.Domain.Errors;
-using Microsoft.AspNetCore.Identity;
-
-namespace Goodreads.Application.Auth.Commands.ResetPassword;
+﻿namespace Goodreads.Application.Auth.Commands.ResetPassword;
 public class ResetPasswordCommandHandler : IRequestHandler<ResetPasswordCommand, Result>
 {
     private readonly UserManager<User> _userManager;

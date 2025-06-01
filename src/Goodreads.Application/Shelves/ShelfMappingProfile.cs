@@ -1,6 +1,4 @@
-﻿using Goodreads.Application.DTOs;
-
-namespace Goodreads.Application.Shelves;
+﻿namespace Goodreads.Application.Shelves;
 public class ShelfMappingProfile : Profile
 {
     public ShelfMappingProfile()

@@ -1,7 +1,4 @@
-﻿using Goodreads.Application.Common.Interfaces;
-using Goodreads.Domain.Errors;
-
-namespace Goodreads.Application.Books.Commands.DeleteBook.DeleteBookCommand;
+﻿namespace Goodreads.Application.Books.Commands.DeleteBook.DeleteBookCommand;
 internal class DeleteBookCommandHandler : IRequestHandler<DeleteBookCommand, Result>
 {
     private readonly IUnitOfWork _unitOfWork;
