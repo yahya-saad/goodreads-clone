@@ -3,6 +3,7 @@ using Goodreads.Application.Common.Interfaces.Authorization;
 using Goodreads.Domain.Entities;
 using Goodreads.Infrastructure.Authorization;
 using Goodreads.Infrastructure.Identity;
+using Goodreads.Infrastructure.Jobs;
 using Goodreads.Infrastructure.Persistence;
 using Goodreads.Infrastructure.Persistence.Seeders;
 using Goodreads.Infrastructure.Repositories;
@@ -10,6 +11,8 @@ using Goodreads.Infrastructure.Security.TokenProvider;
 using Goodreads.Infrastructure.Services.EmailService;
 using Goodreads.Infrastructure.Services.Storage;
 using Goodreads.Infrastructure.Services.TokenProvider;
+using Hangfire;
+using Hangfire.Storage.SQLite;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,7 +30,9 @@ public static class DependencyInjection
             .AddAuthentication(configuration)
             .AddAuthorization()
             .AddEmailServices(configuration)
-            .AddBlobStorage(configuration);
+            .AddBlobStorage(configuration)
+            .AddBackgroundJobs(configuration)
+            .AddHealthChecks(configuration);
 
         return services;
     }
@@ -128,6 +133,29 @@ public static class DependencyInjection
     {
         services.Configure<BlobStorageSettings>(configuration.GetSection(BlobStorageSettings.Section));
         services.AddSingleton<IBlobStorageService, BlobStorageService>();
+        return services;
+    }
+
+    private static IServiceCollection AddBackgroundJobs(this IServiceCollection services, IConfiguration configuration)
+    {
+        services.AddScoped<RefreshTokenCleanupJob>();
+        services.AddHangfire(cfg => cfg
+                .UseSimpleAssemblyNameTypeSerializer()
+                .UseRecommendedSerializerSettings()
+                .UseSQLiteStorage(configuration.GetConnectionString("HangfireConnection")));
+
+        services.AddHangfireServer();
+
+        return services;
+    }
+
+    private static IServiceCollection AddHealthChecks(this IServiceCollection services, IConfiguration configuration)
+    {
+        var azureBlobStorageSettings = configuration.GetSection(BlobStorageSettings.Section).Get<BlobStorageSettings>();
+        services.AddHealthChecks()
+            .AddDbContextCheck<ApplicationDbContext>(name: "Database")
+            .AddAzureBlobStorage(azureBlobStorageSettings.ConnectionString, name: "BlobStorage");
+
         return services;
     }
 

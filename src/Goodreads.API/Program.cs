@@ -1,24 +1,20 @@
 using Goodreads.API.Extensions;
-using Goodreads.API.Middlewares;
 using Goodreads.Application;
 using Goodreads.Infrastructure;
+using Goodreads.Infrastructure.Configurations;
 using Goodreads.Infrastructure.Persistence;
+using Hangfire;
+using HangfireBasicAuthenticationFilter;
+using HealthChecks.UI.Client;
+using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Scalar.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-
-builder.Services.AddControllers();
-builder.Services.AddSwaggerGen();
-
 builder.Services
+    .AddPresentation()
     .AddApplication()
     .AddInfrastructure(builder.Configuration);
-
-builder.Services.AddExceptionHandler<AuthorizationExceptionHandler>();
-builder.Services.AddExceptionHandler<ValidationExceptionHandler>();
-builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
-builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 
@@ -47,5 +43,20 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseHangfireDashboard("/hangfire", new DashboardOptions
+{
+    Authorization = new[] { new HangfireCustomBasicAuthenticationFilter(){
+        User = "admin",
+        Pass = "admin"
+    } },
+});
+
+HangfireJobsConfigurator.ConfigureRecurringJobs();
+
+app.MapHealthChecks("/healthz", new HealthCheckOptions
+{
+    ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
+});
 
 app.Run();
