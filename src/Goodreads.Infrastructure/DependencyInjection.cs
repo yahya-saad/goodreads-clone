@@ -94,6 +94,7 @@ public static class DependencyInjection
         services.AddScoped<IShelfAuthorizationService, ShelfAuthorizationService>();
         services.AddScoped<IAuthorAuthorizationService, AuthorAuthorizationService>();
         services.AddScoped<IQuoteAuthorizationService, QuoteAuthorizationService>();
+        services.AddScoped<IReviewAuthorizationService, ReviewAuthorizationService>();
         return services;
     }
 

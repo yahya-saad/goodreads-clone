@@ -11,6 +11,7 @@ using Goodreads.Application.Books.Queries.GetBooksByGenre;
 using Goodreads.Application.Common;
 using Goodreads.Application.Common.Responses;
 using Goodreads.Application.DTOs;
+using Goodreads.Application.Reviews.Queries.GetAllReviews;
 using Goodreads.Domain.Constants;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -137,6 +138,16 @@ public class BooksController(IMediator mediator) : ControllerBase
         return result.Match(
              () => NoContent(),
              failure => CustomResults.Problem(failure));
+    }
+
+    [HttpGet("{bookId}/reviews")]
+    [EndpointSummary("Get reviews for a book")]
+    [ProducesResponseType(typeof(PagedResult<BookReviewDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetBookReviews(string bookId, [FromQuery] QueryParameters parameters)
+    {
+        var result = await mediator.Send(new GetAllReviewsQuery(parameters, null, bookId));
+        return Ok(result);
     }
 
 }

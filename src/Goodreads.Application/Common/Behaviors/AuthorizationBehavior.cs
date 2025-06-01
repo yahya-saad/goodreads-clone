@@ -6,14 +6,16 @@ public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
     private readonly IAuthorAuthorizationService _authorAuthService;
     private readonly IShelfAuthorizationService _shelfAuthService;
     private readonly IQuoteAuthorizationService _quoteAuthService;
+    private readonly IReviewAuthorizationService _reviewAuthService;
     private readonly IUnitOfWork _unitOfWork;
 
-    public AuthorizationBehavior(IAuthorAuthorizationService authorizationService, IShelfAuthorizationService shelfAuthService, IUnitOfWork unitOfWork, IQuoteAuthorizationService quoteAuthService)
+    public AuthorizationBehavior(IAuthorAuthorizationService authorizationService, IShelfAuthorizationService shelfAuthService, IUnitOfWork unitOfWork, IQuoteAuthorizationService quoteAuthService, IReviewAuthorizationService reviewAuthService)
     {
         _authorAuthService = authorizationService;
         _shelfAuthService = shelfAuthService;
         _unitOfWork = unitOfWork;
         _quoteAuthService = quoteAuthService;
+        _reviewAuthService = reviewAuthService;
     }
 
     public async Task<TResponse> Handle(
@@ -49,6 +51,13 @@ public class AuthorizationBehavior<TRequest, TResponse> : IPipelineBehavior<TReq
         if (request is IRequireQuoteAuthorization quoteRequest)
         {
             var authorized = await _quoteAuthService.IsOwnerOrAdminAsync(quoteRequest.QuoteId);
+            if (!authorized)
+                throw new UnauthorizedAccessException();
+        }
+
+        if (request is IRequireReviewAuthorization reviewRequet)
+        {
+            var authorized = await _reviewAuthService.Authorize(reviewRequet.ReviewId);
             if (!authorized)
                 throw new UnauthorizedAccessException();
         }

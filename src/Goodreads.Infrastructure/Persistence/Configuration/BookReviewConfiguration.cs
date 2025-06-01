@@ -7,7 +7,10 @@ public class BookReviewConfiguration : IEntityTypeConfiguration<BookReview>
 {
     public void Configure(EntityTypeBuilder<BookReview> builder)
     {
-        builder.HasKey(br => new { br.UserId, br.BookId });
+        builder.HasKey(br => br.Id);
+
+        builder.HasIndex(br => new { br.UserId, br.BookId })
+               .IsUnique();
 
         builder.Property(br => br.ReviewText)
                .HasMaxLength(2500);

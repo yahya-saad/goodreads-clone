@@ -3,6 +3,7 @@ using Goodreads.Application.Common;
 using Goodreads.Application.Common.Interfaces;
 using Goodreads.Application.Common.Responses;
 using Goodreads.Application.DTOs;
+using Goodreads.Application.Reviews.Queries.GetAllReviews;
 using Goodreads.Application.Shelves.Queries.GetUserShelves;
 using Goodreads.Application.Users.Commands.ChangePassword;
 using Goodreads.Application.Users.Commands.DeleteAccount;
@@ -190,6 +191,7 @@ public class UsersController(IMediator mediator, IUserContext userContext) : Con
 
     [HttpGet("me/yearlychallenges")]
     [Authorize]
+    [EndpointSummary("Get current user's yearly challenges")]
     [ProducesResponseType(typeof(PagedResult<UserYearChallengeDto>), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
     public async Task<IActionResult> GetMyYearlyChallenges([FromQuery] QueryParameters parameters, [FromQuery] int? year)
@@ -201,6 +203,7 @@ public class UsersController(IMediator mediator, IUserContext userContext) : Con
 
     [HttpGet("me/yearlychallenges/{year:int}")]
     [Authorize]
+    [EndpointSummary("Get details of a specific yearly")]
     [ProducesResponseType(typeof(UserYearChallengeDetailsDto), StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status404NotFound)]
     [ProducesResponseType(StatusCodes.Status401Unauthorized)]
@@ -212,6 +215,30 @@ public class UsersController(IMediator mediator, IUserContext userContext) : Con
             challenge => Ok(ApiResponse<UserYearChallengeDetailsDto>.Success(challenge)),
             failure => CustomResults.Problem(failure)
         );
+    }
+
+    [HttpGet("{userId}/reviews/")]
+    [EndpointSummary("Get reviews for a user")]
+    [ProducesResponseType(typeof(PagedResult<BookReviewDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetUserReviews(string userId, [FromQuery] QueryParameters parameters)
+    {
+        var result = await mediator.Send(new GetAllReviewsQuery(parameters, userId, null));
+        return Ok(result);
+    }
+
+    [HttpGet("me/reviews/")]
+    [Authorize]
+    [EndpointSummary("Get current user's reviews")]
+    [ProducesResponseType(typeof(PagedResult<BookReviewDto>), StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> GetCurrentUserReviews([FromQuery] QueryParameters parameters)
+    {
+        var userId = userContext.UserId;
+        if (userId is null)
+            return Unauthorized();
+        var result = await mediator.Send(new GetAllReviewsQuery(parameters, userId, null));
+        return Ok(result);
     }
 
 
